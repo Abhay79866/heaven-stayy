@@ -1,0 +1,2933 @@
+
+<!DOCTYPE html>
+<html lang="en" class="h-full bg-[#F9FAFB]">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>HavenStays India — Curated Luxury Villas, Chalets & Havelis in India</title>
+  
+  <!-- SEO & GEO Meta Tags -->
+  <meta name="description" content="Discover hand-picked luxury glass chalets in Manali, oceanfront villas in Goa, royal lake havelis in Udaipur, and estate treehouses in Munnar. Book directly with verified human hosts with zero hidden fees." />
+  <meta name="keywords" content="Luxury stays India, Manali glass chalet, Goa beachfront villa, Udaipur lake haveli, Munnar treehouse resort, private host booking India" />
+  <meta name="geo.region" content="IN" />
+  <meta name="geo.placename" content="India" />
+
+  <!-- Premium Typography: Plus Jakarta Sans (Headlines) & Inter (Body UI) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800;900&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            display: ['"Plus Jakarta Sans"', 'sans-serif'],
+          },
+          colors: {
+            canvas: '#F9FAFB',
+            cta: '#000000',
+            accent: '#2563EB',
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      overflow-x: hidden;
+    }
+    h1, h2, h3, h4, .font-display {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      letter-spacing: -0.02em;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.98); }
+      to { opacity: 1; transform: scale(1); }
+    }
+    .animate-fadeIn {
+      animation: fadeIn 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    /* Seamless Infinite Horizontal Marquee Keyframes */
+    @keyframes marqueeLoop {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+    .marquee-track-continuous {
+      display: flex;
+      width: max-content;
+      animation: marqueeLoop 22s linear infinite;
+    }
+    .marquee-track-continuous:hover {
+      animation-play-state: paused;
+    }
+
+    /* Clean Sleek Scrollbars */
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 5px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: #d1d5db;
+      border-radius: 9999px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+      background: #9ca3af;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col font-sans text-gray-900 bg-[#F9FAFB] antialiased">
+
+  <!-- NAVIGATION HEADER WITH RESPONSIVE MOBILE DRAWER TOGGLE -->
+  <header class="sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b border-gray-200/80 shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+      
+      <!-- Brand Logo -->
+      <a href="#" onclick="showPage('home')" class="flex items-center space-x-2.5 group">
+        <div class="w-10 h-10 bg-black rounded-xl flex items-center justify-center text-white font-black text-xl group-hover:scale-105 transition-transform shadow-sm">
+          H
+        </div>
+        <span class="text-xl font-black tracking-tight text-gray-900 font-display">
+          Haven<span class="text-blue-600">Stays</span>
+        </span>
+      </a>
+
+      <!-- Desktop Navigation Links -->
+      <nav class="hidden md:flex items-center space-x-8 text-sm font-semibold text-gray-700">
+        <a href="#" onclick="showPage('all-stays')" class="hover:text-black transition-colors">Explore Stays</a>
+        <a href="#" onclick="showPage('gallery')" class="hover:text-black transition-colors">Guest Gallery</a>
+        <a href="#" onclick="triggerHostPublishCheck()" class="hover:text-black transition-colors">Become a Host</a>
+        <a href="#" onclick="showPage('contact')" class="hover:text-black transition-colors">Contact Us</a>
+      </nav>
+
+      <!-- Desktop Auth CTAs -->
+      <div class="hidden md:flex items-center space-x-3">
+        <div id="header-guest-menu" class="hidden flex items-center space-x-3">
+          <button onclick="showPage('guest-dash')" class="bg-gray-100 hover:bg-gray-200 text-gray-900 px-3.5 py-2 rounded-xl text-xs font-bold transition-colors">
+            📋 My Dashboard (<span id="user-display-name">Guest</span>)
+          </button>
+          <button onclick="handleLogout()" class="text-xs text-gray-500 hover:text-black font-semibold">
+            Log out
+          </button>
+        </div>
+
+        <div id="header-host-menu" class="hidden flex items-center space-x-3">
+          <button onclick="showPage('host-dash')" class="bg-emerald-50 text-emerald-800 border border-emerald-200 px-3.5 py-2 rounded-xl text-xs font-bold">
+            👑 Host Portal (<span id="host-display-name">Host</span>)
+          </button>
+          <button onclick="handleLogout()" class="text-xs text-gray-500 hover:text-black font-semibold">
+            Log out
+          </button>
+        </div>
+
+        <div id="header-logged-out-menu" class="flex items-center space-x-3">
+          <button onclick="openAuthModal('login')" class="text-sm font-semibold text-gray-700 hover:text-black px-3 py-2">
+            Sign In
+          </button>
+          <button onclick="triggerHostPublishCheck()" class="bg-black text-white px-4 py-2.5 rounded-xl text-sm font-bold hover:bg-neutral-800 transition-all shadow-sm">
+            + Publish Property
+          </button>
+        </div>
+      </div>
+
+      <!-- Mobile Hamburger Menu Button -->
+      <button onclick="toggleMobileNav()" class="md:hidden p-2 rounded-xl text-gray-700 hover:text-black hover:bg-gray-100 focus:outline-none">
+        <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+        </svg>
+      </button>
+
+    </div>
+
+    <!-- MOBILE NAVIGATION SLIDE-DOWN DRAWER -->
+    <div id="mobile-nav-drawer" class="hidden md:hidden border-b border-gray-200 bg-white px-4 pt-3 pb-6 space-y-4 animate-fadeIn">
+      <nav class="flex flex-col space-y-3 font-bold text-sm text-gray-800">
+        <a href="#" onclick="showPage('all-stays'); toggleMobileNav();" class="p-2 hover:bg-gray-50 rounded-xl">Explore Indian Stays</a>
+        <a href="#" onclick="showPage('gallery'); toggleMobileNav();" class="p-2 hover:bg-gray-50 rounded-xl">Guest Photo Gallery</a>
+        <a href="#" onclick="triggerHostPublishCheck(); toggleMobileNav();" class="p-2 hover:bg-gray-50 rounded-xl">Become a Host</a>
+        <a href="#" onclick="showPage('contact'); toggleMobileNav();" class="p-2 hover:bg-gray-50 rounded-xl">Contact Us (24/7 Support)</a>
+      </nav>
+
+      <div class="pt-3 border-t border-gray-100 space-y-2">
+        <div id="mobile-guest-menu" class="hidden space-y-2">
+          <button onclick="showPage('guest-dash'); toggleMobileNav();" class="w-full bg-gray-100 text-gray-900 font-bold py-2.5 rounded-xl text-xs">
+            📋 My Dashboard
+          </button>
+          <button onclick="handleLogout(); toggleMobileNav();" class="w-full text-xs text-red-600 font-bold py-1">
+            Log Out
+          </button>
+        </div>
+
+        <div id="mobile-host-menu" class="hidden space-y-2">
+          <button onclick="showPage('host-dash'); toggleMobileNav();" class="w-full bg-emerald-50 text-emerald-800 border border-emerald-200 font-bold py-2.5 rounded-xl text-xs">
+            👑 Host Command Portal
+          </button>
+          <button onclick="handleLogout(); toggleMobileNav();" class="w-full text-xs text-red-600 font-bold py-1">
+            Log Out
+          </button>
+        </div>
+
+        <div id="mobile-logged-out-menu" class="flex flex-col space-y-2">
+          <button onclick="openAuthModal('login'); toggleMobileNav();" class="w-full bg-gray-100 text-gray-900 font-bold py-2.5 rounded-xl text-xs">
+            Sign In
+          </button>
+          <button onclick="triggerHostPublishCheck(); toggleMobileNav();" class="w-full bg-black text-white font-bold py-3 rounded-xl text-xs">
+            + Publish Property
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN CONTAINER -->
+  <main id="app-container" class="flex-1">
+
+    <!-- 1. HOMEPAGE VIEW -->
+    <div id="view-home" class="space-y-12 sm:space-y-16 pb-16">
+      
+      <!-- HERO SECTION -->
+      <section class="relative pt-8 sm:pt-12 pb-16 md:pt-20 md:pb-24 bg-white border-b border-gray-200/80 text-center px-4">
+        <div class="max-w-7xl mx-auto space-y-5 sm:space-y-6">
+          
+          <div class="inline-flex items-center space-x-2 bg-blue-50 border border-blue-200 px-3.5 sm:px-4 py-1.5 rounded-full text-xs font-bold text-blue-700">
+            <span>🛡️ 100% Verified Indian Hosts • Zero AI Matchmakers</span>
+          </div>
+
+          <h1 class="text-3xl sm:text-5xl md:text-6xl font-black tracking-tight text-gray-900 max-w-4xl mx-auto leading-[1.15] font-display">
+            Hand-picked luxury stays across India. <span class="text-blue-600 underline decoration-blue-200 underline-offset-8">Booked directly with verified hosts.</span>
+          </h1>
+
+          <p class="text-sm sm:text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed font-normal">
+            Escape to Solang snow-chalets in Manali, oceanfront Portuguese estates in Goa, royal lake havelis in Udaipur, and cloud-valley tea treehouses in Munnar. No hidden taxes, zero bot algorithms.
+          </p>
+
+          <!-- LUXURY RESPONSIVE SEARCH ENGINE CAPSULE -->
+          <div class="max-w-4xl mx-auto bg-white rounded-3xl md:rounded-full p-2.5 border border-gray-200/90 shadow-[0_12px_40px_rgba(0,0,0,0.07)] flex flex-col md:flex-row items-stretch md:items-center divide-y md:divide-y-0 md:divide-x divide-gray-200 text-left gap-1 md:gap-0">
+            
+            <!-- Destination Field -->
+            <div class="flex-1 px-4 py-2 md:py-2.5 hover:bg-gray-50/80 rounded-2xl md:rounded-l-full transition-colors flex items-center space-x-3">
+              <svg class="w-5 h-5 text-gray-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+              <div class="w-full">
+                <label class="block text-[10px] font-extrabold uppercase tracking-widest text-gray-400">Where</label>
+                <input id="search-city" type="text" placeholder="Where in India? (e.g. Manali)" class="w-full bg-transparent text-sm font-bold text-gray-900 focus:outline-none placeholder:font-normal placeholder:text-gray-400" />
+              </div>
+            </div>
+
+            <!-- Budget Field -->
+            <div class="flex-1 px-4 py-2 md:py-2.5 hover:bg-gray-50/80 transition-colors flex items-center space-x-3">
+              <svg class="w-5 h-5 text-gray-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+              <div class="w-full">
+                <label class="block text-[10px] font-extrabold uppercase tracking-widest text-gray-400">Max Budget</label>
+                <input id="search-price" type="number" placeholder="Budget (₹ / night)" class="w-full bg-transparent text-sm font-bold text-gray-900 focus:outline-none placeholder:font-normal placeholder:text-gray-400" />
+              </div>
+            </div>
+
+            <!-- Guests Breakdown Field & Popover -->
+            <div class="relative flex-1 px-4 py-2 md:py-2.5 hover:bg-gray-50/80 transition-colors flex items-center space-x-3">
+              <svg class="w-5 h-5 text-gray-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+              <div class="w-full">
+                <label class="block text-[10px] font-extrabold uppercase tracking-widest text-gray-400">Guests</label>
+                <button type="button" onclick="toggleDropdown('hero-guest-counter-popover')" class="w-full flex items-center justify-between text-left text-sm font-bold text-gray-900 focus:outline-none cursor-pointer">
+                  <span id="hero-guest-summary" class="truncate">2 Guests (1 M, 1 F)</span>
+                  <svg class="w-4 h-4 text-gray-400 flex-shrink-0 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                </button>
+              </div>
+
+              <!-- Unclipped Guest Popover -->
+              <div id="hero-guest-counter-popover" class="hidden absolute top-full left-0 right-0 mt-3 bg-white rounded-3xl shadow-2xl border border-gray-200 p-5 z-50 animate-fadeIn space-y-4">
+                <div class="flex justify-between items-center pb-2 border-b border-gray-100">
+                  <h4 class="font-bold text-sm text-gray-900 font-display">Select Guest Breakdown</h4>
+                  <button type="button" onclick="closeAllDropdowns()" class="text-xs text-gray-400 hover:text-black font-bold">✕</button>
+                </div>
+
+                <div class="flex items-center justify-between">
+                  <div>
+                    <h5 class="text-xs font-bold text-gray-900">Adults</h5>
+                    <p class="text-[10px] text-gray-400">Ages 13+</p>
+                  </div>
+                  <div class="flex items-center space-x-2">
+                    <button type="button" onclick="adjustGuestCount('adults', -1)" class="w-7 h-7 rounded-full border border-gray-300 flex items-center justify-center text-xs font-bold hover:bg-gray-100">-</button>
+                    <span id="count-adults" class="text-xs font-extrabold w-4 text-center">2</span>
+                    <button type="button" onclick="adjustGuestCount('adults', 1)" class="w-7 h-7 rounded-full border border-gray-300 flex items-center justify-center text-xs font-bold hover:bg-gray-100">+</button>
+                  </div>
+                </div>
+
+                <div class="flex items-center justify-between">
+                  <div>
+                    <h5 class="text-xs font-bold text-gray-900">Children</h5>
+                    <p class="text-[10px] text-gray-400">Ages 2 - 12</p>
+                  </div>
+                  <div class="flex items-center space-x-2">
+                    <button type="button" onclick="adjustGuestCount('children', -1)" class="w-7 h-7 rounded-full border border-gray-300 flex items-center justify-center text-xs font-bold hover:bg-gray-100">-</button>
+                    <span id="count-children" class="text-xs font-extrabold w-4 text-center">0</span>
+                    <button type="button" onclick="adjustGuestCount('children', 1)" class="w-7 h-7 rounded-full border border-gray-300 flex items-center justify-center text-xs font-bold hover:bg-gray-100">+</button>
+                  </div>
+                </div>
+
+                <div class="pt-3 border-t border-gray-100 space-y-3">
+                  <span class="block text-[10px] font-extrabold uppercase tracking-wider text-gray-400">Gender Preference</span>
+                  
+                  <div class="flex items-center justify-between">
+                    <span class="text-xs font-semibold text-gray-700">Male Guests</span>
+                    <div class="flex items-center space-x-2">
+                      <button type="button" onclick="adjustGuestCount('males', -1)" class="w-7 h-7 rounded-full border border-gray-300 flex items-center justify-center text-xs font-bold hover:bg-gray-100">-</button>
+                      <span id="count-males" class="text-xs font-extrabold w-4 text-center">1</span>
+                      <button type="button" onclick="adjustGuestCount('males', 1)" class="w-7 h-7 rounded-full border border-gray-300 flex items-center justify-center text-xs font-bold hover:bg-gray-100">+</button>
+                    </div>
+                  </div>
+
+                  <div class="flex items-center justify-between">
+                    <span class="text-xs font-semibold text-gray-700">Female Guests</span>
+                    <div class="flex items-center space-x-2">
+                      <button type="button" onclick="adjustGuestCount('females', -1)" class="w-7 h-7 rounded-full border border-gray-300 flex items-center justify-center text-xs font-bold hover:bg-gray-100">-</button>
+                      <span id="count-females" class="text-xs font-extrabold w-4 text-center">1</span>
+                      <button type="button" onclick="adjustGuestCount('females', 1)" class="w-7 h-7 rounded-full border border-gray-300 flex items-center justify-center text-xs font-bold hover:bg-gray-100">+</button>
+                    </div>
+                  </div>
+                </div>
+
+                <button type="button" onclick="closeAllDropdowns()" class="w-full bg-black text-white text-xs font-bold py-2.5 rounded-xl hover:bg-neutral-800">
+                  Apply Guest Breakdown ➔
+                </button>
+              </div>
+            </div>
+
+            <!-- Search Action CTA Button -->
+            <div class="p-1 pt-2 md:pt-1">
+              <button onclick="handleSearchSubmit()" class="w-full md:w-auto bg-black text-white py-3.5 px-7 rounded-xl md:rounded-full font-bold text-sm hover:bg-neutral-800 transition-all hover:scale-105 shadow-md flex items-center justify-center space-x-2 cursor-pointer">
+                <svg class="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                <span>Search Stays</span>
+              </button>
+            </div>
+
+          </div>
+
+          <!-- ELEGANT DESTINATIONS CHIPS -->
+          <div class="pt-4 space-y-2">
+            <span class="block text-[11px] font-extrabold tracking-widest uppercase text-gray-400">Popular Destinations in India</span>
+            <div class="flex flex-wrap justify-center gap-2">
+              <button onclick="quickFilter('Manali')" class="bg-white border border-gray-200/90 text-gray-800 hover:border-black hover:bg-black hover:text-white px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-full text-xs font-bold transition-all shadow-sm cursor-pointer">
+                Solang Valley, Manali
+              </button>
+              <button onclick="quickFilter('Goa')" class="bg-white border border-gray-200/90 text-gray-800 hover:border-black hover:bg-black hover:text-white px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-full text-xs font-bold transition-all shadow-sm cursor-pointer">
+                Vagator Cove, Goa
+              </button>
+              <button onclick="quickFilter('Udaipur')" class="bg-white border border-gray-200/90 text-gray-800 hover:border-black hover:bg-black hover:text-white px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-full text-xs font-bold transition-all shadow-sm cursor-pointer">
+                Lake Pichola, Udaipur
+              </button>
+              <button onclick="quickFilter('Munnar')" class="bg-white border border-gray-200/90 text-gray-800 hover:border-black hover:bg-black hover:text-white px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-full text-xs font-bold transition-all shadow-sm cursor-pointer">
+                Cloud Valley, Munnar
+              </button>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- CURATED PROPERTY GRID (SHOWS 6 FEATURED STAYS) -->
+      <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-2">
+          <div>
+            <span class="text-xs font-bold uppercase tracking-wider text-blue-600">Curated Indian Portfolio</span>
+            <h2 class="text-2xl sm:text-3xl font-extrabold text-gray-900 tracking-tight mt-1 font-display">Top-Rated Stays in India</h2>
+          </div>
+          <button onclick="showPage('all-stays')" class="text-sm font-bold text-black hover:text-blue-600 flex items-center space-x-1">
+            <span>Explore All Stays</span>
+            <span>➔</span>
+          </button>
+        </div>
+
+        <!-- 6 Featured Property Cards Grid -->
+        <div id="property-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+          <!-- Dynamically Injected 6 Property Cards -->
+        </div>
+
+        <!-- FUNCTIONAL VIEW ALL STAYS BUTTON BELOW THE 6 CARDS -->
+        <div class="text-center pt-4">
+          <button onclick="showPage('all-stays')" class="inline-flex items-center space-x-2 bg-black hover:bg-neutral-800 text-white font-bold px-8 py-4 rounded-2xl text-sm sm:text-base transition-all hover:scale-105 shadow-xl cursor-pointer">
+            <span id="btn-view-all-count">View All Stays (14 Properties)</span>
+            <span>➔</span>
+          </button>
+        </div>
+      </section>
+
+      <!-- PROMOTIONAL ACQUISITION BANNER -->
+      <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="bg-gradient-to-br from-black via-neutral-900 to-blue-950 text-white rounded-3xl p-6 sm:p-8 md:p-12 relative overflow-hidden flex flex-col md:flex-row justify-between items-center gap-6 sm:gap-8 shadow-2xl border border-neutral-800">
+          <div class="space-y-3 sm:space-y-4 max-w-xl text-center md:text-left z-10">
+            <span class="inline-block bg-blue-600 text-white text-xs font-bold px-3.5 py-1 rounded-full uppercase tracking-wider">
+              For Indian Property Owners
+            </span>
+            <h2 class="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight font-display">
+              Host your villa in Goa, Manali, or Udaipur with zero bot commissions.
+            </h2>
+            <p class="text-neutral-300 text-xs sm:text-sm leading-relaxed font-normal">
+              HavenStays connects high-intent luxury travelers directly with you. Instant WebAuthn biometric payment settlement and 100% human control over your house rules.
+            </p>
+          </div>
+
+          <div class="z-10 flex-shrink-0 w-full sm:w-auto">
+            <button onclick="triggerHostPublishCheck()" class="w-full sm:w-auto bg-blue-600 hover:bg-blue-700 text-white font-bold px-8 py-4 text-sm sm:text-base rounded-2xl shadow-xl hover:scale-105 transition-transform">
+              Publish Indian Property ➔
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- INFINITE MARQUEE TESTIMONIALS LOOP -->
+      <section class="py-12 sm:py-16 bg-[#F5F2EB] border-y border-gray-200/80 overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-3 text-center mb-8 sm:mb-10">
+          <div class="inline-flex items-center space-x-2 bg-blue-50 border border-blue-200 px-3.5 py-1 rounded-full text-xs font-bold text-blue-700">
+            <span>✨ Infinite Verified Guest Feedback</span>
+          </div>
+          <h2 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-gray-900 tracking-tight font-display">
+            Authentic Indian Stay Experiences
+          </h2>
+          <p class="text-xs sm:text-sm text-gray-600 max-w-xl mx-auto font-normal">
+            Real stories from verified travelers across Mumbai, Bengaluru, Delhi NCR, and Kochi. Hover to pause loop.
+          </p>
+        </div>
+
+        <div class="overflow-hidden relative py-4">
+          <div class="marquee-track-continuous flex">
+            
+            <!-- TESTIMONIAL CARD 1 -->
+            <div class="w-72 sm:w-[380px] flex-shrink-0 bg-white border border-gray-200/90 rounded-3xl p-5 sm:p-6 space-y-4 shadow-md mr-4 sm:mr-6 flex flex-col justify-between">
+              <div class="space-y-3">
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center space-x-3">
+                    <img src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&w=150&q=80" class="w-10 h-10 sm:w-11 sm:h-11 rounded-full object-cover border border-gray-200 shadow-sm" />
+                    <div>
+                      <h4 class="font-bold text-xs sm:text-sm text-gray-900 tracking-tight font-display">Aarav Mehta</h4>
+                      <p class="text-[11px] text-gray-500 font-medium">Mumbai • Verified Guest</p>
+                    </div>
+                  </div>
+                  <span class="bg-amber-50 text-amber-800 border border-amber-200 px-2 py-0.5 rounded-full text-[11px] font-bold">★ 5.0</span>
+                </div>
+                <p class="text-xs sm:text-sm text-gray-700 leading-relaxed font-normal italic">
+                  "Waking up to snow peaks in Manali through 360 glass walls was pure magic. Host Vikramaditya arranged hot Himachali siddu and the cedar spa!"
+                </p>
+              </div>
+              <div class="pt-3 border-t border-gray-100">
+                <span class="text-[11px] font-semibold text-blue-700 bg-blue-50 py-1 px-2.5 rounded-xl inline-block border border-blue-100">
+                  📍 Solang Valley Glass Chalet, Manali
+                </span>
+              </div>
+            </div>
+
+            <!-- TESTIMONIAL CARD 2 -->
+            <div class="w-72 sm:w-[380px] flex-shrink-0 bg-white border border-gray-200/90 rounded-3xl p-5 sm:p-6 space-y-4 shadow-md mr-4 sm:mr-6 flex flex-col justify-between">
+              <div class="space-y-3">
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center space-x-3">
+                    <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=150&q=80" class="w-10 h-10 sm:w-11 sm:h-11 rounded-full object-cover border border-gray-200 shadow-sm" />
+                    <div>
+                      <h4 class="font-bold text-xs sm:text-sm text-gray-900 tracking-tight font-display">Priya Sundaram</h4>
+                      <p class="text-[11px] text-gray-500 font-medium">Bengaluru • Verified Guest</p>
+                    </div>
+                  </div>
+                  <span class="bg-amber-50 text-amber-800 border border-amber-200 px-2 py-0.5 rounded-full text-[11px] font-bold">★ 5.0</span>
+                </div>
+                <p class="text-xs sm:text-sm text-gray-700 leading-relaxed font-normal italic">
+                  "Zero hidden charges and WebAuthn biometric payment was verified in 2 seconds. Direct communication with Ananya made our stay perfect!"
+                </p>
+              </div>
+              <div class="pt-3 border-t border-gray-100">
+                <span class="text-[11px] font-semibold text-blue-700 bg-blue-50 py-1 px-2.5 rounded-xl inline-block border border-blue-100">
+                  📍 Portuguese Heritage Villa, Goa
+                </span>
+              </div>
+            </div>
+
+            <!-- TESTIMONIAL CARD 3 -->
+            <div class="w-72 sm:w-[380px] flex-shrink-0 bg-white border border-gray-200/90 rounded-3xl p-5 sm:p-6 space-y-4 shadow-md mr-4 sm:mr-6 flex flex-col justify-between">
+              <div class="space-y-3">
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center space-x-3">
+                    <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=150&q=80" class="w-10 h-10 sm:w-11 sm:h-11 rounded-full object-cover border border-gray-200 shadow-sm" />
+                    <div>
+                      <h4 class="font-bold text-xs sm:text-sm text-gray-900 tracking-tight font-display">Rohan Kapoor</h4>
+                      <p class="text-[11px] text-gray-500 font-medium">Delhi NCR • Verified Guest</p>
+                    </div>
+                  </div>
+                  <span class="bg-amber-50 text-amber-800 border border-amber-200 px-2 py-0.5 rounded-full text-[11px] font-bold">★ 5.0</span>
+                </div>
+                <p class="text-xs sm:text-sm text-gray-700 leading-relaxed font-normal italic">
+                  "The private boat transfer across Lake Pichola right to the haveli doorstep was unforgettable. True Rajasthani human hospitality!"
+                </p>
+              </div>
+              <div class="pt-3 border-t border-gray-100">
+                <span class="text-[11px] font-semibold text-blue-700 bg-blue-50 py-1 px-2.5 rounded-xl inline-block border border-blue-100">
+                  📍 Lake Pichola Haveli, Udaipur
+                </span>
+              </div>
+            </div>
+
+            <!-- DUPLICATE TESTIMONIAL CARD 1 (FOR SEAMLESS INFINITE LOOP) -->
+            <div class="w-72 sm:w-[380px] flex-shrink-0 bg-white border border-gray-200/90 rounded-3xl p-5 sm:p-6 space-y-4 shadow-md mr-4 sm:mr-6 flex flex-col justify-between">
+              <div class="space-y-3">
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center space-x-3">
+                    <img src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&w=150&q=80" class="w-10 h-10 sm:w-11 sm:h-11 rounded-full object-cover border border-gray-200 shadow-sm" />
+                    <div>
+                      <h4 class="font-bold text-xs sm:text-sm text-gray-900 tracking-tight font-display">Aarav Mehta</h4>
+                      <p class="text-[11px] text-gray-500 font-medium">Mumbai • Verified Guest</p>
+                    </div>
+                  </div>
+                  <span class="bg-amber-50 text-amber-800 border border-amber-200 px-2 py-0.5 rounded-full text-[11px] font-bold">★ 5.0</span>
+                </div>
+                <p class="text-xs sm:text-sm text-gray-700 leading-relaxed font-normal italic">
+                  "Waking up to snow peaks in Manali through 360 glass walls was pure magic. Host Vikramaditya arranged hot Himachali siddu and the cedar spa!"
+                </p>
+              </div>
+              <div class="pt-3 border-t border-gray-100">
+                <span class="text-[11px] font-semibold text-blue-700 bg-blue-50 py-1 px-2.5 rounded-xl inline-block border border-blue-100">
+                  📍 Solang Valley Glass Chalet, Manali
+                </span>
+              </div>
+            </div>
+
+            <!-- DUPLICATE TESTIMONIAL CARD 2 -->
+            <div class="w-72 sm:w-[380px] flex-shrink-0 bg-white border border-gray-200/90 rounded-3xl p-5 sm:p-6 space-y-4 shadow-md mr-4 sm:mr-6 flex flex-col justify-between">
+              <div class="space-y-3">
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center space-x-3">
+                    <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=150&q=80" class="w-10 h-10 sm:w-11 sm:h-11 rounded-full object-cover border border-gray-200 shadow-sm" />
+                    <div>
+                      <h4 class="font-bold text-xs sm:text-sm text-gray-900 tracking-tight font-display">Priya Sundaram</h4>
+                      <p class="text-[11px] text-gray-500 font-medium">Bengaluru • Verified Guest</p>
+                    </div>
+                  </div>
+                  <span class="bg-amber-50 text-amber-800 border border-amber-200 px-2 py-0.5 rounded-full text-[11px] font-bold">★ 5.0</span>
+                </div>
+                <p class="text-xs sm:text-sm text-gray-700 leading-relaxed font-normal italic">
+                  "Zero hidden charges and WebAuthn biometric payment was verified in 2 seconds. Direct communication with Ananya made our stay perfect!"
+                </p>
+              </div>
+              <div class="pt-3 border-t border-gray-100">
+                <span class="text-[11px] font-semibold text-blue-700 bg-blue-50 py-1 px-2.5 rounded-xl inline-block border border-blue-100">
+                  📍 Portuguese Heritage Villa, Goa
+                </span>
+              </div>
+            </div>
+
+            <!-- DUPLICATE TESTIMONIAL CARD 3 -->
+            <div class="w-72 sm:w-[380px] flex-shrink-0 bg-white border border-gray-200/90 rounded-3xl p-5 sm:p-6 space-y-4 shadow-md mr-4 sm:mr-6 flex flex-col justify-between">
+              <div class="space-y-3">
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center space-x-3">
+                    <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=150&q=80" class="w-10 h-10 sm:w-11 sm:h-11 rounded-full object-cover border border-gray-200 shadow-sm" />
+                    <div>
+                      <h4 class="font-bold text-xs sm:text-sm text-gray-900 tracking-tight font-display">Rohan Kapoor</h4>
+                      <p class="text-[11px] text-gray-500 font-medium">Delhi NCR • Verified Guest</p>
+                    </div>
+                  </div>
+                  <span class="bg-amber-50 text-amber-800 border border-amber-200 px-2 py-0.5 rounded-full text-[11px] font-bold">★ 5.0</span>
+                </div>
+                <p class="text-xs sm:text-sm text-gray-700 leading-relaxed font-normal italic">
+                  "The private boat transfer across Lake Pichola right to the haveli doorstep was unforgettable. True Rajasthani human hospitality!"
+                </p>
+              </div>
+              <div class="pt-3 border-t border-gray-100">
+                <span class="text-[11px] font-semibold text-blue-700 bg-blue-50 py-1 px-2.5 rounded-xl inline-block border border-blue-100">
+                  📍 Lake Pichola Haveli, Udaipur
+                </span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- PINTEREST/EDITORIAL EDGE-TO-EDGE BENTO MASONRY PHOTO GALLERY -->
+    <div id="view-gallery" class="hidden max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8 animate-fadeIn">
+      
+      <!-- Breadcrumb Navigation -->
+      <nav class="flex items-center space-x-2 text-xs font-semibold text-gray-500">
+        <a href="#" onclick="showPage('home')" class="hover:text-black">Home</a>
+        <span>/</span>
+        <span class="text-gray-900 font-bold">Guest Experiences Gallery</span>
+      </nav>
+
+      <div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-4">
+        <div class="space-y-2">
+          <div class="inline-flex items-center space-x-2 bg-emerald-50 border border-emerald-200 px-3 py-1 rounded-full text-xs font-bold text-emerald-800">
+            <span>Authentic Guest Moments</span>
+          </div>
+          <h1 class="text-3xl sm:text-4xl font-black text-gray-900 tracking-tight font-display">
+            Guest Moments & Luxury Experiences
+          </h1>
+          <p class="text-sm text-gray-600 max-w-2xl font-normal">
+            Pure edge-to-edge photography of guests enjoying cedar wood spas, oceanfront infinity pools, and royal lake haveli balconies across India. Click any photo to expand and slide.
+          </p>
+        </div>
+
+        <button onclick="showPage('all-stays')" class="bg-black text-white px-5 py-3 rounded-2xl text-xs font-bold hover:bg-neutral-800 transition-all flex-shrink-0">
+          Book One of These Stays ➔
+        </button>
+      </div>
+
+      <!-- GALLERY CATEGORY FILTER PILLS -->
+      <div class="flex flex-wrap gap-2 pt-2 text-xs font-bold">
+        <button onclick="filterGallery('all')" id="gfilter-all" class="bg-black text-white px-4 py-2 rounded-xl transition-all shadow-sm">
+          All Guest Moments (${GALLERY_IMAGES.length})
+        </button>
+        <button onclick="filterGallery('Manali')" id="gfilter-manali" class="bg-white hover:bg-gray-100 text-gray-700 border border-gray-200 px-4 py-2 rounded-xl transition-all">
+          📍 Manali Glass Chalets
+        </button>
+        <button onclick="filterGallery('Goa')" id="gfilter-goa" class="bg-white hover:bg-gray-100 text-gray-700 border border-gray-200 px-4 py-2 rounded-xl transition-all">
+          📍 Goa Oceanfront Villas
+        </button>
+        <button onclick="filterGallery('Udaipur')" id="gfilter-udaipur" class="bg-white hover:bg-gray-100 text-gray-700 border border-gray-200 px-4 py-2 rounded-xl transition-all">
+          📍 Udaipur Royal Havelis
+        </button>
+        <button onclick="filterGallery('Munnar')" id="gfilter-munnar" class="bg-white hover:bg-gray-100 text-gray-700 border border-gray-200 px-4 py-2 rounded-xl transition-all">
+          📍 Munnar Tea Treehouses
+        </button>
+      </div>
+
+      <!-- PINTEREST/EDITORIAL EDGE-TO-EDGE BENTO MASONRY PHOTO GRID -->
+      <div id="gallery-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 auto-rows-[220px]">
+        <!-- Dynamically injected edge-to-edge bento photo tiles -->
+      </div>
+    </div>
+
+    <!-- 2. DEDICATED "EXPLORE ALL STAYS" CATALOG PAGE -->
+    <div id="view-all-stays" class="hidden max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8 animate-fadeIn">
+      
+      <nav class="flex items-center space-x-2 text-xs font-semibold text-gray-500">
+        <a href="#" onclick="showPage('home')" class="hover:text-black">Home</a>
+        <span>/</span>
+        <a href="#" onclick="showPage('all-stays')" class="text-blue-600">Explore Indian Stays</a>
+        <span>/</span>
+        <span class="text-gray-900 font-bold">All Properties Portfolio</span>
+      </nav>
+
+      <div class="space-y-2">
+        <h1 class="text-3xl sm:text-4xl font-black text-gray-900 tracking-tight font-display">All Luxury Stays in India</h1>
+        <p class="text-sm text-gray-600 font-normal">Browse hand-selected estate villas, mountain glass chalets, and heritage havelis across India.</p>
+      </div>
+
+      <!-- CUSTOM DROPDOWNS BAR -->
+      <div class="bg-white p-5 rounded-3xl border border-gray-200 shadow-sm grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 items-center">
+        
+        <div class="relative">
+          <label class="block text-[10px] font-extrabold uppercase tracking-wider text-gray-400 mb-1.5">Destination City</label>
+          <button type="button" onclick="toggleDropdown('all-city-popover')" class="w-full flex items-center justify-between text-left text-xs font-bold text-gray-900 bg-gray-50 border border-gray-200 rounded-2xl px-3.5 py-2.5 focus:outline-none hover:bg-gray-100 transition-colors">
+            <span id="all-city-label">All Destinations (India)</span>
+            <svg class="w-4 h-4 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+          </button>
+
+          <div id="all-city-popover" class="hidden absolute top-full left-0 right-0 mt-2 bg-white rounded-2xl shadow-2xl border border-gray-200 p-2 z-50 animate-fadeIn space-y-1">
+            <div onclick="selectAllCity('all', 'All Destinations (India)')" class="px-3.5 py-2.5 rounded-xl text-xs font-semibold bg-gray-100 text-gray-900 cursor-pointer flex justify-between items-center">
+              <span>All Destinations (India)</span>
+              <span class="text-blue-600 font-bold">✓</span>
+            </div>
+            <div onclick="selectAllCity('Manali', 'Manali, Himachal Pradesh')" class="px-3.5 py-2.5 rounded-xl text-xs font-semibold hover:bg-gray-100 cursor-pointer flex justify-between items-center">
+              <span>Manali, Himachal Pradesh</span>
+            </div>
+            <div onclick="selectAllCity('Goa', 'Vagator & Goa Beach')" class="px-3.5 py-2.5 rounded-xl text-xs font-semibold hover:bg-gray-100 cursor-pointer flex justify-between items-center">
+              <span>Vagator & Goa Beach</span>
+            </div>
+            <div onclick="selectAllCity('Udaipur', 'Udaipur, Rajasthan')" class="px-3.5 py-2.5 rounded-xl text-xs font-semibold hover:bg-gray-100 cursor-pointer flex justify-between items-center">
+              <span>Udaipur, Rajasthan</span>
+            </div>
+            <div onclick="selectAllCity('Munnar', 'Munnar, Kerala')" class="px-3.5 py-2.5 rounded-xl text-xs font-semibold hover:bg-gray-100 cursor-pointer flex justify-between items-center">
+              <span>Munnar, Kerala</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="relative">
+          <label class="block text-[10px] font-extrabold uppercase tracking-wider text-gray-400 mb-1.5">Max Budget per Night</label>
+          <button type="button" onclick="toggleDropdown('all-price-popover')" class="w-full flex items-center justify-between text-left text-xs font-bold text-gray-900 bg-gray-50 border border-gray-200 rounded-2xl px-3.5 py-2.5 focus:outline-none hover:bg-gray-100 transition-colors">
+            <span id="all-price-label">Any Price Range</span>
+            <svg class="w-4 h-4 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+          </button>
+
+          <div id="all-price-popover" class="hidden absolute top-full left-0 right-0 mt-2 bg-white rounded-2xl shadow-2xl border border-gray-200 p-2 z-50 animate-fadeIn space-y-1">
+            <div onclick="selectAllPrice(999999, 'Any Price Range')" class="px-3.5 py-2.5 rounded-xl text-xs font-semibold bg-gray-100 text-gray-900 cursor-pointer flex justify-between items-center">
+              <span>Any Price Range</span>
+              <span class="text-blue-600 font-bold">✓</span>
+            </div>
+            <div onclick="selectAllPrice(18000, 'Under ₹18,000 / night')" class="px-3.5 py-2.5 rounded-xl text-xs font-semibold hover:bg-gray-100 cursor-pointer flex justify-between items-center">
+              <span>Under ₹18,000 / night</span>
+            </div>
+            <div onclick="selectAllPrice(25000, 'Under ₹25,000 / night')" class="px-3.5 py-2.5 rounded-xl text-xs font-semibold hover:bg-gray-100 cursor-pointer flex justify-between items-center">
+              <span>Under ₹25,000 / night</span>
+            </div>
+            <div onclick="selectAllPrice(30000, 'Under ₹30,000 / night')" class="px-3.5 py-2.5 rounded-xl text-xs font-semibold hover:bg-gray-100 cursor-pointer flex justify-between items-center">
+              <span>Under ₹30,000 / night</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="relative">
+          <label class="block text-[10px] font-extrabold uppercase tracking-wider text-gray-400 mb-1.5">Sort Properties</label>
+          <button type="button" onclick="toggleDropdown('all-sort-popover')" class="w-full flex items-center justify-between text-left text-xs font-bold text-gray-900 bg-gray-50 border border-gray-200 rounded-2xl px-3.5 py-2.5 focus:outline-none hover:bg-gray-100 transition-colors">
+            <span id="all-sort-label">Featured First</span>
+            <svg class="w-4 h-4 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+          </button>
+
+          <div id="all-sort-popover" class="hidden absolute top-full left-0 right-0 mt-2 bg-white rounded-2xl shadow-2xl border border-gray-200 p-2 z-50 animate-fadeIn space-y-1">
+            <div onclick="selectAllSort('featured', 'Featured First')" class="px-3.5 py-2.5 rounded-xl text-xs font-semibold bg-gray-100 text-gray-900 cursor-pointer flex justify-between items-center">
+              <span>Featured First</span>
+              <span class="text-blue-600 font-bold">✓</span>
+            </div>
+            <div onclick="selectAllSort('low-high', 'Price: Low to High')" class="px-3.5 py-2.5 rounded-xl text-xs font-semibold hover:bg-gray-100 cursor-pointer flex justify-between items-center">
+              <span>Price: Low to High</span>
+            </div>
+            <div onclick="selectAllSort('high-low', 'Price: High to Low')" class="px-3.5 py-2.5 rounded-xl text-xs font-semibold hover:bg-gray-100 cursor-pointer flex justify-between items-center">
+              <span>Price: High to Low</span>
+            </div>
+            <div onclick="selectAllSort('rating', 'Top Rated (5.0 Stars)')" class="px-3.5 py-2.5 rounded-xl text-xs font-semibold hover:bg-gray-100 cursor-pointer flex justify-between items-center">
+              <span>Top Rated (5.0 Stars)</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="pt-4 sm:pt-0">
+          <button onclick="handleResetAllFilters()" class="w-full bg-gray-100 hover:bg-black hover:text-white text-gray-900 text-xs font-bold py-3 rounded-2xl transition-all shadow-sm">
+            Reset Filters
+          </button>
+        </div>
+
+      </div>
+
+      <!-- Property Cards Grid -->
+      <div id="all-stays-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- Dynamically injected filtered properties -->
+      </div>
+    </div>
+
+    <!-- 3. DEDICATED CONTACT US PAGE -->
+    <div id="view-contact" class="hidden max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-8 animate-fadeIn">
+      
+      <nav class="flex items-center space-x-2 text-xs font-semibold text-gray-500">
+        <a href="#" onclick="showPage('home')" class="hover:text-black">Home</a>
+        <span>/</span>
+        <span class="text-gray-900 font-bold">Contact Us</span>
+      </nav>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+        
+        <div class="lg:col-span-5 bg-white rounded-3xl p-6 sm:p-8 border border-gray-200 shadow-xl flex flex-col justify-between space-y-6">
+          <div class="space-y-3">
+            <span class="text-xs font-bold text-blue-600 uppercase tracking-wider">24/7 Human Support Concierge</span>
+            <h1 class="text-2xl sm:text-3xl font-black text-gray-900 tracking-tight font-display">Get in touch with HavenStays</h1>
+            <p class="text-xs sm:text-sm text-gray-600 leading-relaxed">
+              Have questions about a villa in Manali, Goa, or Udaipur? Connect directly with our Indian human support team without automated bot gatekeepers.
+            </p>
+          </div>
+
+          <div class="space-y-3.5 border-t border-gray-100 pt-6 flex-1 flex flex-col justify-center">
+            <div class="bg-gray-50 p-4 rounded-2xl border border-gray-100 flex items-start space-x-3.5">
+              <div class="w-10 h-10 bg-blue-100 text-blue-700 rounded-xl flex items-center justify-center font-bold text-lg flex-shrink-0">
+                📞
+              </div>
+              <div>
+                <h4 class="font-bold text-gray-900 text-sm font-display">Dedicated Helpline</h4>
+                <p class="text-xs text-gray-700 font-semibold mt-0.5">+91 1800-HAVEN-STAY (+91 1800 428 36782)</p>
+                <p class="text-[11px] text-gray-400 mt-0.5">Available 24/7 in English, Hindi, & Regional Languages</p>
+              </div>
+            </div>
+
+            <div class="bg-gray-50 p-4 rounded-2xl border border-gray-100 flex items-start space-x-3.5">
+              <div class="w-10 h-10 bg-emerald-100 text-emerald-700 rounded-xl flex items-center justify-center font-bold text-lg flex-shrink-0">
+                ✉️
+              </div>
+              <div>
+                <h4 class="font-bold text-gray-900 text-sm font-display">Direct Email Support</h4>
+                <p class="text-xs text-gray-700 font-semibold mt-0.5">concierge@havenstay.in</p>
+                <p class="text-[11px] text-gray-400 mt-0.5">Guaranteed human response within 30 minutes</p>
+              </div>
+            </div>
+
+            <div class="bg-gray-50 p-4 rounded-2xl border border-gray-100 flex items-start space-x-3.5">
+              <div class="w-10 h-10 bg-amber-100 text-amber-700 rounded-xl flex items-center justify-center font-bold text-lg flex-shrink-0">
+                📍
+              </div>
+              <div>
+                <h4 class="font-bold text-gray-900 text-sm font-display">Headquarters</h4>
+                <p class="text-xs text-gray-700 font-semibold mt-0.5">HavenStays India Technology Pvt. Ltd.</p>
+                <p class="text-[11px] text-gray-400 mt-0.5">BKC Financial District, Mumbai, MH 400051</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="lg:col-span-7 bg-white rounded-3xl p-6 sm:p-8 border border-gray-200 shadow-xl flex flex-col justify-between space-y-6">
+          <div>
+            <h2 class="text-xl font-bold text-gray-900 font-display mb-1">Send us a direct message</h2>
+            <p class="text-xs text-gray-500">Fill out the form below for instant human concierge support.</p>
+          </div>
+
+          <form onsubmit="handleContactSubmit(event)" class="space-y-4 flex-1 flex flex-col justify-between">
+            <div class="space-y-4">
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label class="block text-xs font-semibold uppercase text-gray-700 mb-1">Your Full Name</label>
+                  <input id="contact-name" type="text" placeholder="e.g. Aarav Mehta" required class="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-black font-medium" />
+                </div>
+                <div>
+                  <label class="block text-xs font-semibold uppercase text-gray-700 mb-1">Email Address</label>
+                  <input id="contact-email" type="email" placeholder="you@domain.com" required class="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-black font-medium" />
+                </div>
+              </div>
+
+              <div class="relative">
+                <label class="block text-xs font-semibold uppercase text-gray-700 mb-1">Subject</label>
+                <button type="button" onclick="toggleDropdown('contact-subject-popover')" class="w-full flex items-center justify-between text-left text-sm font-semibold text-gray-900 bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 focus:outline-none cursor-pointer">
+                  <span id="contact-subject-label">Guest Reservation Inquiry</span>
+                  <svg class="w-4 h-4 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                </button>
+
+                <div id="contact-subject-popover" class="hidden absolute top-full left-0 right-0 mt-2 bg-white rounded-2xl shadow-2xl border border-gray-200 p-2 z-50 animate-fadeIn space-y-1">
+                  <div onclick="selectContactSubject('Guest Reservation Inquiry')" class="px-3.5 py-2 rounded-xl text-xs font-semibold bg-gray-100 cursor-pointer">Guest Reservation Inquiry</div>
+                  <div onclick="selectContactSubject('Host Partnership & Property Listing')" class="px-3.5 py-2 rounded-xl text-xs font-semibold hover:bg-gray-100 cursor-pointer">Host Partnership & Property Listing</div>
+                  <div onclick="selectContactSubject('WebAuthn Biometric Support')" class="px-3.5 py-2 rounded-xl text-xs font-semibold hover:bg-gray-100 cursor-pointer">WebAuthn Biometric Support</div>
+                  <div onclick="selectContactSubject('Other Feedback')" class="px-3.5 py-2 rounded-xl text-xs font-semibold hover:bg-gray-100 cursor-pointer">Other Feedback</div>
+                </div>
+              </div>
+
+              <div>
+                <label class="block text-xs font-semibold uppercase text-gray-700 mb-1">Your Message</label>
+                <textarea id="contact-message" rows="3" placeholder="How can our human hospitality concierge help you today?" required class="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-black font-normal"></textarea>
+              </div>
+            </div>
+
+            <button type="submit" class="w-full bg-black text-white font-bold py-3.5 rounded-2xl hover:bg-neutral-800 transition-all shadow-md mt-2">
+              Send Message to Concierge ➔
+            </button>
+          </form>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- PROPERTY DETAILS VIEW -->
+    <div id="view-details" class="hidden max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8 animate-fadeIn">
+      <button onclick="showPage('home')" class="text-xs font-bold text-gray-500 hover:text-black flex items-center space-x-1">
+        <span>← Back to all Indian stays</span>
+      </button>
+
+      <div class="space-y-2">
+        <div class="flex items-center space-x-3">
+          <span class="bg-emerald-50 text-emerald-800 border border-emerald-200 px-2.5 py-0.5 rounded-full text-xs font-bold">
+            Verified Indian Host
+          </span>
+          <span id="detail-location" class="text-xs text-gray-500 font-medium">Manali, Himachal Pradesh</span>
+        </div>
+        <h1 id="detail-title" class="text-2xl sm:text-4xl font-black text-gray-900 tracking-tight font-display">The Solang Valley Glass Chalet</h1>
+        <p id="detail-tagline" class="text-sm sm:text-base text-gray-600 font-medium">Secluded Himalayan glass chalet with snow peak views.</p>
+      </div>
+
+      <!-- Bento Gallery -->
+      <div id="detail-bento" class="grid grid-cols-1 md:grid-cols-4 gap-2 md:gap-3 rounded-3xl overflow-hidden shadow-sm">
+        <!-- Photo slots -->
+      </div>
+
+      <!-- Split Layout -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 pt-4">
+        
+        <!-- Left Column -->
+        <div class="lg:col-span-7 space-y-8 sm:space-y-10">
+          <div class="grid grid-cols-4 gap-2 sm:gap-4 p-4 bg-white rounded-2xl border border-gray-200 text-center">
+            <div>
+              <span class="block text-[10px] font-extrabold uppercase text-gray-400">Guests</span>
+              <span id="spec-guests" class="text-sm sm:text-base font-black text-gray-900">4</span>
+            </div>
+            <div>
+              <span class="block text-[10px] font-extrabold uppercase text-gray-400">Bedrooms</span>
+              <span id="spec-bedrooms" class="text-sm sm:text-base font-black text-gray-900">2</span>
+            </div>
+            <div>
+              <span class="block text-[10px] font-extrabold uppercase text-gray-400">Beds</span>
+              <span id="spec-beds" class="text-sm sm:text-base font-black text-gray-900">2</span>
+            </div>
+            <div>
+              <span class="block text-[10px] font-extrabold uppercase text-gray-400">Baths</span>
+              <span id="spec-baths" class="text-sm sm:text-base font-black text-gray-900">2</span>
+            </div>
+          </div>
+
+          <div class="space-y-3">
+            <h2 class="text-xl font-bold text-gray-900 font-display">About this property</h2>
+            <p id="detail-description" class="text-sm sm:text-base text-gray-700 leading-relaxed font-normal">
+              Experience pure tranquility...
+            </p>
+          </div>
+
+          <div class="space-y-4 pt-6 border-t border-gray-200">
+            <h2 class="text-xl font-bold text-gray-900 font-display">Featured Amenities</h2>
+            <div id="detail-amenities" class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+              <!-- Amenity Pills -->
+            </div>
+          </div>
+
+          <div class="pt-6 border-t border-gray-200 space-y-4">
+            <h2 class="text-xl font-bold text-gray-900 font-display">Meet your host</h2>
+            <div class="bg-white rounded-2xl p-6 border border-gray-200 shadow-sm space-y-4">
+              <div class="flex items-center space-x-4">
+                <img id="host-avatar" src="" class="w-14 h-14 rounded-full object-cover border-2 border-emerald-500/20" />
+                <div>
+                  <h3 id="host-name" class="font-bold text-gray-900 text-lg font-display">Vikramaditya Thorne</h3>
+                  <p class="text-xs text-gray-500 font-medium">Verified HavenStays Superhost</p>
+                </div>
+              </div>
+              <div class="grid grid-cols-2 gap-3 text-center border-t border-gray-100 pt-2">
+                <div class="bg-gray-50 p-2.5 rounded-xl">
+                  <span class="block text-xs text-gray-500 uppercase font-semibold">Response Rate</span>
+                  <span class="text-base font-black text-gray-900">100%</span>
+                </div>
+                <div class="bg-gray-50 p-2.5 rounded-xl">
+                  <span class="block text-xs text-gray-500 uppercase font-semibold">Response Time</span>
+                  <span class="text-sm font-bold text-gray-900">Within 30 mins</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Sticky Column: BOOKING WIDGET -->
+        <div class="lg:col-span-5">
+          <div class="bg-white rounded-3xl p-5 sm:p-6 border border-gray-200 shadow-xl space-y-6 sticky top-28">
+            <div class="flex justify-between items-baseline pb-4 border-b border-gray-100">
+              <div>
+                <span id="booking-night-rate" class="text-2xl sm:text-3xl font-black text-gray-900 font-display">₹16,500</span>
+                <span class="text-xs sm:text-sm text-gray-500 font-medium"> / night</span>
+              </div>
+              <div class="text-sm font-bold text-gray-900">★ 4.98</div>
+            </div>
+
+            <div class="border border-gray-300 rounded-2xl divide-y divide-gray-200">
+              <div class="relative">
+                <div class="grid grid-cols-2 divide-x divide-gray-200">
+                  <button type="button" onclick="toggleDropdown('custom-calendar-popover')" class="p-3 sm:p-3.5 bg-gray-50/70 hover:bg-blue-50/80 text-left transition-colors cursor-pointer rounded-tl-2xl">
+                    <span class="block text-[10px] font-extrabold uppercase tracking-wider text-gray-500">Check-In 📅</span>
+                    <span id="detail-checkin-display" class="text-xs sm:text-sm font-extrabold text-gray-900 block mt-0.5">Aug 20, 2026</span>
+                  </button>
+
+                  <button type="button" onclick="toggleDropdown('custom-calendar-popover')" class="p-3 sm:p-3.5 bg-gray-50/70 hover:bg-blue-50/80 text-left transition-colors cursor-pointer rounded-tr-2xl">
+                    <span class="block text-[10px] font-extrabold uppercase tracking-wider text-gray-500">Check-Out 📅</span>
+                    <span id="detail-checkout-display" class="text-xs sm:text-sm font-extrabold text-gray-900 block mt-0.5">Aug 24, 2026</span>
+                  </button>
+                </div>
+
+                <div id="custom-calendar-popover" class="hidden absolute top-full left-0 right-0 mt-2 bg-white rounded-3xl shadow-2xl border border-gray-200 p-5 z-50 animate-fadeIn space-y-4">
+                  <div class="flex justify-between items-center pb-2 border-b border-gray-100">
+                    <h4 class="font-bold text-sm text-gray-900 font-display">Select Stay Dates</h4>
+                    <button type="button" onclick="closeAllDropdowns()" class="text-xs text-gray-400 hover:text-black font-bold">✕</button>
+                  </div>
+
+                  <div class="flex justify-between gap-1 text-[11px] font-bold">
+                    <button type="button" onclick="selectCalendarPreset('weekend')" class="flex-1 bg-gray-100 hover:bg-black hover:text-white py-1.5 rounded-lg transition-colors">This Weekend</button>
+                    <button type="button" onclick="selectCalendarPreset('nextweek')" class="flex-1 bg-gray-100 hover:bg-black hover:text-white py-1.5 rounded-lg transition-colors">Next Week</button>
+                    <button type="button" onclick="selectCalendarPreset('7days')" class="flex-1 bg-gray-100 hover:bg-black hover:text-white py-1.5 rounded-lg transition-colors">7 Days</button>
+                  </div>
+
+                  <div class="grid grid-cols-2 gap-2 pt-2 border-t border-gray-100">
+                    <div>
+                      <label class="block text-[10px] font-bold uppercase text-gray-400">Check-In</label>
+                      <input type="date" id="calendar-manual-in" value="2026-08-20" onchange="handleManualDateChange()" class="w-full border border-gray-200 rounded-xl px-2 py-1 text-xs font-semibold bg-gray-50" />
+                    </div>
+                    <div>
+                      <label class="block text-[10px] font-bold uppercase text-gray-400">Check-Out</label>
+                      <input type="date" id="calendar-manual-out" value="2026-08-24" onchange="handleManualDateChange()" class="w-full border border-gray-200 rounded-xl px-2 py-1 text-xs font-semibold bg-gray-50" />
+                    </div>
+                  </div>
+
+                  <div class="flex justify-between items-center pt-2">
+                    <span class="text-xs font-extrabold text-gray-900 font-display">August 2026</span>
+                    <span id="calendar-nights-badge" class="text-[11px] font-bold text-blue-600 bg-blue-50 px-2 py-0.5 rounded-full">4 Nights Selected</span>
+                  </div>
+
+                  <div class="grid grid-cols-7 gap-1 text-center text-[10px] font-extrabold text-gray-400 uppercase">
+                    <span>Su</span><span>Mo</span><span>Tu</span><span>We</span><span>Th</span><span>Fr</span><span>Sa</span>
+                  </div>
+
+                  <div class="grid grid-cols-7 gap-1 text-center text-xs font-semibold">
+                    <span class="py-1.5 text-gray-300">26</span><span class="py-1.5 text-gray-300">27</span><span class="py-1.5 text-gray-300">28</span><span class="py-1.5 text-gray-300">29</span><span class="py-1.5 text-gray-300">30</span><span class="py-1.5 text-gray-300">31</span>
+                    <button type="button" onclick="setCalendarRange('2026-08-01', '2026-08-05')" class="py-1.5 rounded-lg hover:bg-blue-100 cursor-pointer">1</button>
+                    <button type="button" onclick="setCalendarRange('2026-08-02', '2026-08-06')" class="py-1.5 rounded-lg hover:bg-blue-100 cursor-pointer">2</button>
+                    <button type="button" onclick="setCalendarRange('2026-08-03', '2026-08-07')" class="py-1.5 rounded-lg hover:bg-blue-100 cursor-pointer">3</button>
+                    <button type="button" onclick="setCalendarRange('2026-08-04', '2026-08-08')" class="py-1.5 rounded-lg hover:bg-blue-100 cursor-pointer">4</button>
+                    <button type="button" onclick="setCalendarRange('2026-08-05', '2026-08-09')" class="py-1.5 rounded-lg hover:bg-blue-100 cursor-pointer">5</button>
+                    <button type="button" onclick="setCalendarRange('2026-08-06', '2026-08-10')" class="py-1.5 rounded-lg hover:bg-blue-100 cursor-pointer">6</button>
+                    <button type="button" onclick="setCalendarRange('2026-08-07', '2026-08-11')" class="py-1.5 rounded-lg hover:bg-blue-100 cursor-pointer">7</button>
+                    <button type="button" onclick="setCalendarRange('2026-08-08', '2026-08-12')" class="py-1.5 rounded-lg hover:bg-blue-100 cursor-pointer">8</button>
+                    <button type="button" onclick="setCalendarRange('2026-08-09', '2026-08-13')" class="py-1.5 rounded-lg hover:bg-blue-100 cursor-pointer">9</button>
+                    <button type="button" onclick="setCalendarRange('2026-08-10', '2026-08-14')" class="py-1.5 rounded-lg hover:bg-blue-100 cursor-pointer">10</button>
+                    <button type="button" onclick="setCalendarRange('2026-08-11', '2026-08-15')" class="py-1.5 rounded-lg hover:bg-blue-100 cursor-pointer">11</button>
+                    <button type="button" onclick="setCalendarRange('2026-08-12', '2026-08-16')" class="py-1.5 rounded-lg hover:bg-blue-100 cursor-pointer">12</button>
+                    <button type="button" onclick="setCalendarRange('2026-08-13', '2026-08-17')" class="py-1.5 rounded-lg hover:bg-blue-100 cursor-pointer">13</button>
+                    <button type="button" onclick="setCalendarRange('2026-08-14', '2026-08-18')" class="py-1.5 rounded-lg hover:bg-blue-100 cursor-pointer">14</button>
+                    <button type="button" onclick="setCalendarRange('2026-08-15', '2026-08-19')" class="py-1.5 rounded-lg hover:bg-blue-100 cursor-pointer">15</button>
+                    <button type="button" onclick="setCalendarRange('2026-08-16', '2026-08-20')" class="py-1.5 rounded-lg hover:bg-blue-100 cursor-pointer">16</button>
+                    <button type="button" onclick="setCalendarRange('2026-08-17', '2026-08-21')" class="py-1.5 rounded-lg hover:bg-blue-100 cursor-pointer">17</button>
+                    <button type="button" onclick="setCalendarRange('2026-08-18', '2026-08-22')" class="py-1.5 rounded-lg hover:bg-blue-100 cursor-pointer">18</button>
+                    <button type="button" onclick="setCalendarRange('2026-08-19', '2026-08-23')" class="py-1.5 rounded-lg hover:bg-blue-100 cursor-pointer">19</button>
+                    
+                    <button type="button" onclick="setCalendarRange('2026-08-20', '2026-08-24')" class="py-1.5 bg-black text-white font-bold rounded-l-lg cursor-pointer">20</button>
+                    <button type="button" onclick="setCalendarRange('2026-08-20', '2026-08-24')" class="py-1.5 bg-blue-100 text-blue-900 cursor-pointer">21</button>
+                    <button type="button" onclick="setCalendarRange('2026-08-20', '2026-08-24')" class="py-1.5 bg-blue-100 text-blue-900 cursor-pointer">22</button>
+                    <button type="button" onclick="setCalendarRange('2026-08-20', '2026-08-24')" class="py-1.5 bg-blue-100 text-blue-900 cursor-pointer">23</button>
+                    <button type="button" onclick="setCalendarRange('2026-08-20', '2026-08-24')" class="py-1.5 bg-black text-white font-bold rounded-r-lg cursor-pointer">24</button>
+
+                    <button type="button" onclick="setCalendarRange('2026-08-25', '2026-08-29')" class="py-1.5 rounded-lg hover:bg-blue-100 cursor-pointer">25</button>
+                    <button type="button" onclick="setCalendarRange('2026-08-26', '2026-08-30')" class="py-1.5 rounded-lg hover:bg-blue-100 cursor-pointer">26</button>
+                    <button type="button" onclick="setCalendarRange('2026-08-27', '2026-08-31')" class="py-1.5 rounded-lg hover:bg-blue-100 cursor-pointer">27</button>
+                    <button type="button" onclick="setCalendarRange('2026-08-28', '2026-09-01')" class="py-1.5 rounded-lg hover:bg-blue-100 cursor-pointer">28</button>
+                    <button type="button" onclick="setCalendarRange('2026-08-29', '2026-09-02')" class="py-1.5 rounded-lg hover:bg-blue-100 cursor-pointer">29</button>
+                    <button type="button" onclick="setCalendarRange('2026-08-30', '2026-09-03')" class="py-1.5 rounded-lg hover:bg-blue-100 cursor-pointer">30</button>
+                  </div>
+
+                  <button type="button" onclick="closeAllDropdowns()" class="w-full bg-black text-white text-xs font-bold py-2.5 rounded-xl hover:bg-neutral-800">
+                    Apply Selected Dates ➔
+                  </button>
+                </div>
+              </div>
+
+              <div class="relative">
+                <button type="button" onclick="toggleDropdown('detail-guests-popover')" class="w-full p-3 sm:p-3.5 bg-gray-50/70 hover:bg-blue-50/80 text-left transition-colors cursor-pointer rounded-b-2xl flex items-center justify-between">
+                  <div>
+                    <label class="block text-[10px] font-extrabold uppercase tracking-wider text-gray-500">Guests & Gender Breakdown</label>
+                    <span id="detail-guests-summary" class="text-xs sm:text-sm font-extrabold text-gray-900 block mt-0.5">2 Guests (1 M, 1 F)</span>
+                  </div>
+                  <svg class="w-4 h-4 text-gray-500 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                </button>
+
+                <div id="detail-guests-popover" class="hidden absolute top-full left-0 right-0 mt-2 bg-white rounded-3xl shadow-2xl border border-gray-200 p-5 z-50 animate-fadeIn space-y-4">
+                  <div class="flex justify-between items-center pb-2 border-b border-gray-100">
+                    <h4 class="font-bold text-xs text-gray-900 font-display">Guest Breakdown</h4>
+                    <button type="button" onclick="closeAllDropdowns()" class="text-xs text-gray-400 hover:text-black font-bold">✕</button>
+                  </div>
+
+                  <div class="flex items-center justify-between text-xs font-semibold">
+                    <span>Adults (Ages 13+)</span>
+                    <div class="flex items-center space-x-2">
+                      <button type="button" onclick="adjustGuestCount('adults', -1)" class="w-7 h-7 rounded-full border border-gray-300 flex items-center justify-center font-bold hover:bg-gray-100 cursor-pointer">-</button>
+                      <span id="detail-count-adults" class="font-bold w-4 text-center">2</span>
+                      <button type="button" onclick="adjustGuestCount('adults', 1)" class="w-7 h-7 rounded-full border border-gray-300 flex items-center justify-center font-bold hover:bg-gray-100 cursor-pointer">+</button>
+                    </div>
+                  </div>
+
+                  <div class="flex items-center justify-between text-xs font-semibold">
+                    <span>Children (Ages 2-12)</span>
+                    <div class="flex items-center space-x-2">
+                      <button type="button" onclick="adjustGuestCount('children', -1)" class="w-7 h-7 rounded-full border border-gray-300 flex items-center justify-center font-bold hover:bg-gray-100 cursor-pointer">-</button>
+                      <span id="detail-count-children" class="font-bold w-4 text-center">0</span>
+                      <button type="button" onclick="adjustGuestCount('children', 1)" class="w-7 h-7 rounded-full border border-gray-300 flex items-center justify-center font-bold hover:bg-gray-100 cursor-pointer">+</button>
+                    </div>
+                  </div>
+
+                  <div class="pt-3 border-t border-gray-100 space-y-2 text-xs">
+                    <div class="flex items-center justify-between">
+                      <span class="text-gray-600 font-medium">Male Guests</span>
+                      <div class="flex items-center space-x-2">
+                        <button type="button" onclick="adjustGuestCount('males', -1)" class="w-7 h-7 rounded-full border border-gray-300 flex items-center justify-center font-bold hover:bg-gray-100 cursor-pointer">-</button>
+                        <span id="detail-count-males" class="font-bold w-4 text-center">1</span>
+                        <button type="button" onclick="adjustGuestCount('males', 1)" class="w-7 h-7 rounded-full border border-gray-300 flex items-center justify-center font-bold hover:bg-gray-100 cursor-pointer">+</button>
+                      </div>
+                    </div>
+
+                    <div class="flex items-center justify-between">
+                      <span class="text-gray-600 font-medium">Female Guests</span>
+                      <div class="flex items-center space-x-2">
+                        <button type="button" onclick="adjustGuestCount('females', -1)" class="w-7 h-7 rounded-full border border-gray-300 flex items-center justify-center font-bold hover:bg-gray-100 cursor-pointer">-</button>
+                        <span id="detail-count-females" class="font-bold w-4 text-center">1</span>
+                        <button type="button" onclick="adjustGuestCount('females', 1)" class="w-7 h-7 rounded-full border border-gray-300 flex items-center justify-center font-bold hover:bg-gray-100 cursor-pointer">+</button>
+                      </div>
+                    </div>
+                  </div>
+
+                  <button type="button" onclick="closeAllDropdowns()" class="w-full bg-black text-white text-xs font-bold py-2.5 rounded-xl hover:bg-neutral-800">
+                    Apply Guest Selection ➔
+                  </button>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- Itemized Breakdown -->
+            <div class="space-y-2 text-xs sm:text-sm text-gray-600">
+              <div class="flex justify-between">
+                <span id="breakdown-nights-label">₹16,500 × 4 nights</span>
+                <span id="breakdown-base-total" class="font-semibold text-gray-900">₹66,000</span>
+              </div>
+              <div class="flex justify-between">
+                <span>Cleaning fee</span>
+                <span id="breakdown-cleaning" class="font-semibold text-gray-900">₹2,500</span>
+              </div>
+              <div class="flex justify-between">
+                <span>HavenStays Service Fee (8%)</span>
+                <span id="breakdown-service" class="font-semibold text-gray-900">₹5,280</span>
+              </div>
+              <div class="flex justify-between pt-3 border-t border-gray-200 text-sm sm:text-base font-extrabold text-gray-900">
+                <span>Total upfront cost</span>
+                <span id="breakdown-grand-total">₹73,780</span>
+              </div>
+            </div>
+
+            <!-- Biometric CTA Button -->
+            <button onclick="handleInitiateBooking()" class="w-full bg-black text-white text-sm sm:text-base font-bold py-3.5 sm:py-4 rounded-2xl shadow-lg hover:bg-neutral-800 transition-all flex items-center justify-center space-x-2">
+              <span>Reserve via WebAuthn Biometrics</span>
+              <span>➔</span>
+            </button>
+
+            <p class="text-center text-[11px] text-gray-500">
+              🔒 Upfront INR pricing guarantee • Instant WebAuthn biometric security
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- DYNAMIC GUEST DASHBOARD VIEW -->
+    <div id="view-guest-dash" class="hidden max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-8 animate-fadeIn">
+      <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-white p-6 sm:p-8 rounded-3xl border border-gray-200 shadow-sm">
+        <div class="space-y-2">
+          <div class="flex items-center space-x-3">
+            <h1 class="text-2xl sm:text-3xl font-black text-gray-900 font-display">Welcome, <span id="dash-guest-name">Guest</span>!</h1>
+            <span class="bg-emerald-50 text-emerald-800 border border-emerald-200 px-3 py-1 rounded-full text-xs font-bold">
+              ✓ Verified Guest
+            </span>
+          </div>
+          <p class="text-xs sm:text-sm text-gray-600">
+            Manage your biometrically authorized Indian stay reservations and direct human host communications.
+          </p>
+        </div>
+
+        <button onclick="showPage('home')" class="w-full sm:w-auto bg-black text-white px-5 py-3 rounded-2xl text-xs font-bold hover:bg-neutral-800">
+          Book Another Stay ➔
+        </button>
+      </div>
+
+      <div class="space-y-4">
+        <h2 class="text-xl sm:text-2xl font-extrabold text-gray-900 tracking-tight font-display">Your Confirmed Indian Trips</h2>
+
+        <div id="guest-bookings-list" class="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
+          <!-- Dynamically injected bookings -->
+        </div>
+      </div>
+    </div>
+
+    <!-- HOST PORTAL DASHBOARD VIEW -->
+    <div id="view-host-dash" class="hidden max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-8 animate-fadeIn">
+      <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 bg-white p-6 sm:p-8 rounded-3xl border border-gray-200 shadow-sm">
+        <div class="space-y-2">
+          <div class="flex items-center space-x-3">
+            <h1 class="text-2xl sm:text-3xl font-black text-gray-900 font-display">Host Command Portal</h1>
+            <span class="bg-blue-50 text-blue-800 border border-blue-200 px-3 py-1 rounded-full text-xs font-bold">
+              👑 Superhost Verified
+            </span>
+          </div>
+          <p class="text-xs sm:text-sm text-gray-600">
+            Welcome back, <span id="host-portal-name">Vikramaditya</span>. Click any metric card below to inspect live database breakdowns.
+          </p>
+        </div>
+
+        <button onclick="openHostModal()" class="w-full md:w-auto bg-black text-white font-bold py-3.5 px-6 rounded-2xl hover:bg-neutral-800 text-xs sm:text-sm">
+          + Publish New Property ➔
+        </button>
+      </div>
+
+      <!-- 3 INTERACTIVE & CLICKABLE HOST METRIC CARDS -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6">
+        
+        <div onclick="openHostPayoutModal()" class="group cursor-pointer bg-white p-5 sm:p-6 rounded-3xl border border-gray-200 shadow-sm hover:shadow-xl hover:border-black transition-all space-y-3 relative overflow-hidden">
+          <div class="flex justify-between items-center">
+            <span class="text-[10px] sm:text-xs font-extrabold uppercase tracking-wider text-gray-400">Total Host Payout (YTD)</span>
+            <span class="text-xs font-bold text-blue-600 group-hover:translate-x-1 transition-transform">Inspect ➔</span>
+          </div>
+          <div id="metric-host-payout" class="text-2xl sm:text-3xl font-black text-gray-900 font-display">₹1,98,240</div>
+          <div class="flex justify-between items-center text-xs">
+            <span class="font-semibold text-emerald-600 text-[11px]">100% Direct Settlement</span>
+            <span class="text-[10px] bg-emerald-50 text-emerald-800 px-2 py-0.5 rounded-full font-bold">0% Fee</span>
+          </div>
+        </div>
+
+        <div onclick="openHostCompletedStaysModal()" class="group cursor-pointer bg-white p-5 sm:p-6 rounded-3xl border border-gray-200 shadow-sm hover:shadow-xl hover:border-black transition-all space-y-3 relative overflow-hidden">
+          <div class="flex justify-between items-center">
+            <span class="text-[10px] sm:text-xs font-extrabold uppercase tracking-wider text-gray-400">Completed Stays</span>
+            <span class="text-xs font-bold text-blue-600 group-hover:translate-x-1 transition-transform">Inspect ➔</span>
+          </div>
+          <div id="metric-host-stays" class="text-2xl sm:text-3xl font-black text-gray-900 font-display">2 Stays</div>
+          <div class="flex justify-between items-center text-xs">
+            <span class="font-semibold text-gray-500 text-[11px]">Zero cancellations</span>
+            <span class="text-[10px] bg-blue-50 text-blue-800 px-2 py-0.5 rounded-full font-bold">★ 4.98</span>
+          </div>
+        </div>
+
+        <div onclick="openHostListingsModal()" class="group cursor-pointer bg-white p-5 sm:p-6 rounded-3xl border border-gray-200 shadow-sm hover:shadow-xl hover:border-black transition-all space-y-3 relative overflow-hidden sm:col-span-2 md:col-span-1">
+          <div class="flex justify-between items-center">
+            <span class="text-[10px] sm:text-xs font-extrabold uppercase tracking-wider text-gray-400">Published Listings</span>
+            <span class="text-xs font-bold text-blue-600 group-hover:translate-x-1 transition-transform">Inspect ➔</span>
+          </div>
+          <div id="metric-host-properties-count" class="text-2xl sm:text-3xl font-black text-gray-900 font-display">5 Properties</div>
+          <div class="flex justify-between items-center text-xs">
+            <span class="font-semibold text-blue-600 text-[11px]">Active in Database</span>
+            <span class="text-[10px] bg-emerald-50 text-emerald-800 px-2 py-0.5 rounded-full font-bold">Synced Live</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- DYNAMIC HOST PROPERTY MANAGEMENT SECTION -->
+      <div class="space-y-4 pt-4 border-t border-gray-200">
+        <h2 class="text-xl sm:text-2xl font-extrabold text-gray-900 font-display">Your Active Database Listings</h2>
+        <div id="host-properties-list" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <!-- Dynamically injected Host listings -->
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- FULLSCREEN INTERACTIVE GALLERY LIGHTBOX CAROUSEL MODAL -->
+  <div id="modal-gallery-lightbox" class="hidden fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/90 backdrop-blur-md animate-fadeIn">
+    
+    <div class="absolute top-0 left-0 right-0 p-4 sm:p-6 flex justify-between items-center z-30 text-white">
+      <div>
+        <span id="lightbox-counter" class="text-[10px] sm:text-xs font-bold uppercase tracking-wider text-neutral-400">Photo 1 of 12</span>
+        <h4 id="lightbox-title" class="font-bold text-sm sm:text-lg font-display">Guest Experience Photo</h4>
+      </div>
+      <button onclick="closeGalleryLightbox()" class="text-white hover:text-gray-300 font-extrabold text-xl sm:text-2xl p-2 cursor-pointer bg-white/10 rounded-full w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center">
+        ✕
+      </button>
+    </div>
+
+    <button onclick="navigateGallery(-1)" class="absolute left-2 sm:left-8 top-1/2 -translate-y-1/2 z-30 bg-white/20 hover:bg-white/40 text-white rounded-full w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center text-xl sm:text-2xl font-bold transition-all shadow-xl cursor-pointer">
+      ❮
+    </button>
+
+    <div class="max-w-5xl max-h-[75vh] w-full flex flex-col items-center justify-center space-y-3 z-20 px-8 sm:px-0">
+      <img id="lightbox-image" src="" class="max-h-[55vh] sm:max-h-[65vh] w-auto max-w-full object-contain rounded-2xl shadow-2xl border border-white/10 transition-transform duration-300 scale-100" />
+      
+      <div class="text-center space-y-1 bg-black/50 backdrop-blur-sm px-4 py-2 rounded-2xl border border-white/10">
+        <p id="lightbox-caption" class="text-xs sm:text-sm font-semibold text-white">Guest enjoying coffee on balcony</p>
+        <span id="lightbox-location" class="text-[11px] text-emerald-400 font-bold">📍 Manali, Himachal Pradesh</span>
+      </div>
+    </div>
+
+    <button onclick="navigateGallery(1)" class="absolute right-2 sm:right-8 top-1/2 -translate-y-1/2 z-30 bg-white/20 hover:bg-white/40 text-white rounded-full w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center text-xl sm:text-2xl font-bold transition-all shadow-xl cursor-pointer">
+      ❯
+    </button>
+
+  </div>
+
+  <!-- POPUP MODAL 1: TOTAL HOST PAYOUT BREAKDOWN -->
+  <div id="modal-host-payout" class="hidden fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/60 backdrop-blur-sm animate-fadeIn">
+    <div class="w-full max-w-xl bg-white rounded-3xl shadow-2xl border border-gray-100 max-h-[85vh] flex flex-col overflow-hidden">
+      
+      <div class="flex justify-between items-center px-5 py-4 sm:px-6 sm:py-5 border-b border-gray-100 bg-white flex-shrink-0 z-20 rounded-t-3xl">
+        <div>
+          <h3 class="text-lg sm:text-xl font-bold text-gray-900 font-display">Financial Payouts Ledger</h3>
+          <p class="text-xs text-gray-500 mt-0.5">Itemized WebAuthn settlements for Host Vikramaditya.</p>
+        </div>
+        <button onclick="closeModal('modal-host-payout')" class="text-gray-400 hover:text-black font-bold p-1">✕</button>
+      </div>
+
+      <div class="flex-1 overflow-y-auto p-4 sm:p-6 space-y-4 custom-scrollbar">
+        <div class="bg-emerald-50 border border-emerald-200 rounded-2xl p-4 flex justify-between items-center text-xs">
+          <div>
+            <span class="block text-[10px] font-extrabold uppercase text-emerald-700">YTD Settled Earnings</span>
+            <span id="payout-modal-total" class="text-xl sm:text-2xl font-black text-gray-900 font-display">₹1,98,240</span>
+          </div>
+          <span class="bg-emerald-600 text-white font-bold px-3 py-1 rounded-full text-xs shadow-sm">
+            0% Fee
+          </span>
+        </div>
+
+        <div class="space-y-3">
+          <h4 class="text-xs font-extrabold uppercase tracking-wider text-gray-400">Settled Biometric Transactions</h4>
+          <div id="payout-modal-list" class="space-y-3">
+            <!-- Dynamically Injected Payout Records -->
+          </div>
+        </div>
+      </div>
+
+      <div class="p-4 px-6 border-t border-gray-100 bg-white flex-shrink-0 z-20 rounded-b-3xl">
+        <button onclick="closeModal('modal-host-payout')" class="w-full bg-black text-white font-bold py-3 sm:py-3.5 rounded-2xl hover:bg-neutral-800 text-xs sm:text-sm">
+          Close Financial Ledger
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- POPUP MODAL 2: COMPLETED RESERVATIONS BREAKDOWN -->
+  <div id="modal-host-stays" class="hidden fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/60 backdrop-blur-sm animate-fadeIn">
+    <div class="w-full max-w-xl bg-white rounded-3xl shadow-2xl border border-gray-100 max-h-[85vh] flex flex-col overflow-hidden">
+      
+      <div class="flex justify-between items-center px-5 py-4 sm:px-6 sm:py-5 border-b border-gray-100 bg-white flex-shrink-0 z-20 rounded-t-3xl">
+        <div>
+          <h3 class="text-lg sm:text-xl font-bold text-gray-900 font-display">Completed Guest Stay History</h3>
+          <p class="text-xs text-gray-500 mt-0.5">Verified human guest stay records and contact info.</p>
+        </div>
+        <button onclick="closeModal('modal-host-stays')" class="text-gray-400 hover:text-black font-bold p-1">✕</button>
+      </div>
+
+      <div class="flex-1 overflow-y-auto p-4 sm:p-6 space-y-4 custom-scrollbar">
+        <div id="completed-stays-modal-list" class="space-y-4">
+          <!-- Dynamically Injected Completed Stay Cards -->
+        </div>
+      </div>
+
+      <div class="p-4 px-6 border-t border-gray-100 bg-white flex-shrink-0 z-20 rounded-b-3xl">
+        <button onclick="closeModal('modal-host-stays')" class="w-full bg-black text-white font-bold py-3 sm:py-3.5 rounded-2xl hover:bg-neutral-800 text-xs sm:text-sm">
+          Close Guest History
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- POPUP MODAL 3: PUBLISHED LISTINGS PORTFOLIO -->
+  <div id="modal-host-listings" class="hidden fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/60 backdrop-blur-sm animate-fadeIn">
+    <div class="w-full max-w-2xl bg-white rounded-3xl shadow-2xl border border-gray-100 max-h-[85vh] flex flex-col overflow-hidden">
+      
+      <div class="flex justify-between items-center px-5 py-4 sm:px-6 sm:py-5 border-b border-gray-100 bg-white flex-shrink-0 z-20 rounded-t-3xl">
+        <div>
+          <h3 class="text-lg sm:text-xl font-bold text-gray-900 font-display">Active Firestore Database Portfolio</h3>
+          <p class="text-xs text-gray-500 mt-0.5">Live luxury properties listed under Host Vikramaditya.</p>
+        </div>
+        <button onclick="closeModal('modal-host-listings')" class="text-gray-400 hover:text-black font-bold p-1">✕</button>
+      </div>
+
+      <div class="flex-1 overflow-y-auto p-4 sm:p-6 space-y-4 custom-scrollbar">
+        <div id="listings-modal-grid" class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <!-- Dynamically Injected Property Portfolio Cards -->
+        </div>
+      </div>
+
+      <div class="p-4 px-6 border-t border-gray-100 bg-white flex-shrink-0 z-20 rounded-b-3xl">
+        <div class="flex flex-col sm:flex-row justify-between gap-3">
+          <button onclick="openHostModal(); closeModal('modal-host-listings');" class="flex-1 bg-black text-white font-bold py-3 sm:py-3.5 rounded-2xl hover:bg-neutral-800 text-xs sm:text-sm">
+            + Publish New Listing
+          </button>
+          <button onclick="closeModal('modal-host-listings')" class="bg-gray-100 hover:bg-gray-200 text-gray-900 font-bold px-6 py-3 sm:py-3.5 rounded-2xl text-xs sm:text-sm">
+            Close
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- AUTHENTICATION & LOGIN MODAL -->
+  <div id="modal-auth" class="hidden fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/60 backdrop-blur-sm animate-fadeIn">
+    <div class="w-full max-w-md bg-white rounded-3xl shadow-2xl border border-gray-100 max-h-[85vh] flex flex-col overflow-hidden">
+      
+      <div class="flex justify-between items-center px-5 py-4 sm:px-6 sm:py-5 border-b border-gray-100 bg-white flex-shrink-0 z-20 rounded-t-3xl">
+        <h3 id="auth-modal-title" class="text-lg sm:text-xl font-bold text-gray-900 font-display">Sign In to HavenStays</h3>
+        <button onclick="closeAuthModal()" class="text-gray-400 hover:text-black font-bold p-1">✕</button>
+      </div>
+
+      <div class="flex-1 overflow-y-auto p-5 sm:p-6 space-y-5 custom-scrollbar">
+        <div class="grid grid-cols-2 gap-2 p-1 bg-gray-100 rounded-xl text-xs font-bold">
+          <button id="auth-mode-login" type="button" onclick="setAuthMode('login')" class="py-2.5 rounded-lg bg-white text-gray-900 shadow-sm transition-colors">
+            Sign In
+          </button>
+          <button id="auth-mode-register" type="button" onclick="setAuthMode('register')" class="py-2.5 rounded-lg text-gray-500 hover:text-gray-900 transition-colors">
+            Create Account
+          </button>
+        </div>
+
+        <form onsubmit="handleAuthSubmit(event)" class="space-y-4">
+          <div id="field-name-container" class="hidden">
+            <label class="block text-xs font-semibold uppercase text-gray-700 mb-1">Full Name</label>
+            <input id="auth-name" type="text" placeholder="e.g. Aarav Mehta" class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm" value="Aarav Mehta" />
+          </div>
+
+          <div>
+            <label class="block text-xs font-semibold uppercase text-gray-700 mb-1">Email Address</label>
+            <input id="auth-email" type="email" placeholder="you@heavenstay.in" required class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm" value="guest@heavenstay.in" />
+          </div>
+
+          <div>
+            <label class="block text-xs font-semibold uppercase text-gray-700 mb-1">Password</label>
+            <input id="auth-password" type="password" placeholder="••••••••" required class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm" value="password123" />
+          </div>
+
+          <div id="role-select-container" class="hidden relative">
+            <label class="block text-xs font-semibold uppercase text-gray-700 mb-1">Account Role</label>
+            <button type="button" onclick="toggleDropdown('auth-role-popover')" class="w-full flex items-center justify-between text-left text-sm font-semibold text-gray-900 bg-gray-50 border border-gray-200 rounded-xl px-4 py-2.5 focus:outline-none">
+              <span id="auth-role-label">Guest (Book Stays)</span>
+              <svg class="w-4 h-4 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+            </button>
+
+            <div id="auth-role-popover" class="hidden absolute top-full left-0 right-0 mt-2 bg-white rounded-2xl shadow-2xl border border-gray-200 p-2 z-50 animate-fadeIn space-y-1">
+              <div onclick="selectAuthRole('guest', 'Guest (Book Stays)')" class="px-3.5 py-2.5 rounded-xl text-xs font-semibold bg-gray-100 text-gray-900 cursor-pointer flex justify-between items-center">
+                <span>Guest (Book Stays)</span>
+                <span class="text-blue-600 font-bold">✓</span>
+              </div>
+              <div onclick="selectAuthRole('host', 'Host (List Properties)')" class="px-3.5 py-2.5 rounded-xl text-xs font-semibold hover:bg-gray-100 cursor-pointer flex justify-between items-center">
+                <span>Host (List Properties)</span>
+              </div>
+            </div>
+          </div>
+
+          <button id="auth-submit-btn" type="submit" class="w-full bg-black text-white font-bold py-3.5 rounded-2xl hover:bg-neutral-800 shadow-md">
+            Sign In ➔
+          </button>
+        </form>
+
+        <div class="pt-4 border-t border-gray-100 text-center space-y-2">
+          <span class="block text-[11px] font-bold uppercase text-gray-400">Quick Firebase Demo Login</span>
+          <div class="flex justify-center space-x-2 text-xs">
+            <button onclick="quickAuth('guest')" class="bg-blue-50 text-blue-700 border border-blue-200 px-3 py-1.5 rounded-lg font-semibold hover:bg-blue-100">
+              Guest (Aarav)
+            </button>
+            <button onclick="quickAuth('host')" class="bg-emerald-50 text-emerald-800 border border-emerald-200 px-3 py-1.5 rounded-lg font-semibold hover:bg-emerald-100">
+              Host (Vikram)
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- WEBAUTHN BIOMETRIC MODAL -->
+  <div id="modal-biometric" class="hidden fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/60 backdrop-blur-sm animate-fadeIn">
+    <div class="w-full max-w-md bg-white rounded-3xl p-6 sm:p-8 space-y-6 shadow-2xl border border-gray-100">
+      
+      <div id="bio-step-1" class="space-y-5 text-center">
+        <div class="mx-auto w-16 h-16 sm:w-20 sm:h-20 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center">
+          <svg class="w-8 h-8 sm:w-10 sm:h-10 animate-pulse" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 11c0 3.517-1.009 6.799-2.753 9.571m-3.44-2.04l.054-.09A13.916 13.916 0 008 11a4 4 0 118 0c0 1.017-.07 2.019-.203 3m-2.118 6.844A21.88 21.88 0 0015.171 17m3.839 1.132c.645-2.266.99-4.659.99-7.132A8 8 0 008 4.07M3 15.364c.64-1.319 1-2.8 1-4.364 0-1.457-.39-2.823-1.07-4" />
+          </svg>
+        </div>
+
+        <div>
+          <h3 class="text-lg sm:text-xl font-bold text-gray-900 font-display">Authorize Reservation</h3>
+          <p class="text-xs sm:text-sm text-gray-500 mt-1">Touch ID / Face ID verification required to confirm booking.</p>
+        </div>
+
+        <div class="bg-gray-50 p-4 rounded-2xl text-left space-y-2 text-xs sm:text-sm">
+          <div class="flex justify-between text-gray-600 font-semibold">
+            <span>Guest Name:</span>
+            <span id="bio-confirm-guest-name">Aarav Mehta</span>
+          </div>
+          <div class="flex justify-between text-gray-600">
+            <span>Stay Total (INR)</span>
+            <span id="bio-confirm-total-price" class="font-extrabold text-gray-900 font-display">₹73,780</span>
+          </div>
+        </div>
+
+        <button onclick="startScanProcess()" class="w-full bg-black text-white font-bold py-3.5 rounded-2xl text-xs sm:text-sm">
+          Verify & Confirm with Biometrics
+        </button>
+        <button onclick="closeBiometricModal()" class="text-xs text-gray-400 block mx-auto">Cancel</button>
+      </div>
+
+      <div id="bio-step-2" class="hidden py-8 space-y-6 text-center">
+        <div class="mx-auto w-16 h-16 sm:w-20 sm:h-20 bg-blue-600 text-white rounded-full flex items-center justify-center animate-bounce">
+          <svg class="w-8 h-8 sm:w-10 sm:h-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 11c0 3.517-1.009 6.799-2.753 9.571m-3.44-2.04l.054-.09A13.916 13.916 0 008 11a4 4 0 118 0c0 1.017-.07 2.019-.203 3m-2.118 6.844A21.88 21.88 0 0015.171 17m3.839 1.132c.645-2.266.99-4.659.99-7.132A8 8 0 008 4.07M3 15.364c.64-1.319 1-2.8 1-4.364 0-1.457-.39-2.823-1.07-4" />
+          </svg>
+        </div>
+        <h3 class="text-base sm:text-lg font-bold text-gray-900 font-display">Scanning Device Biometrics...</h3>
+      </div>
+
+      <div id="bio-step-3" class="hidden py-6 space-y-4 text-center">
+        <div class="mx-auto w-14 h-14 sm:w-16 sm:h-16 bg-emerald-50 text-emerald-600 rounded-full flex items-center justify-center font-black text-xl sm:text-2xl">
+          ✓
+        </div>
+        <h3 class="text-lg sm:text-xl font-bold text-gray-900 font-display">Biometric Payment Verified!</h3>
+        <p id="bio-txhash" class="text-[11px] sm:text-xs text-emerald-700 font-mono bg-emerald-50 py-1 px-3 rounded-full inline-block">
+          TxHash: BIO_WA_IN_9F2A
+        </p>
+        <button onclick="completeBookingAndRedirect()" class="w-full bg-emerald-600 text-white font-bold py-3 rounded-xl mt-4 text-xs sm:text-sm">
+          Go to My Trips Dashboard ➔
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- HOST PUBLISH MODAL -->
+  <div id="modal-host" class="hidden fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/60 backdrop-blur-sm animate-fadeIn">
+    <div class="w-full max-w-lg bg-white rounded-3xl shadow-2xl border border-gray-100 max-h-[85vh] flex flex-col overflow-hidden">
+      
+      <div class="flex justify-between items-center px-5 py-4 sm:px-6 sm:py-5 border-b border-gray-100 bg-white flex-shrink-0 z-20 rounded-t-3xl">
+        <div>
+          <h3 class="text-lg sm:text-xl font-bold text-gray-900 font-display">Publish Indian Property Listing</h3>
+          <p id="host-modal-user-subtitle" class="text-xs text-emerald-700 font-semibold">Logged in Host: Vikramaditya Thorne (UID: host_001)</p>
+        </div>
+        <button onclick="closeHostModal()" class="text-gray-400 hover:text-black font-bold p-1">✕</button>
+      </div>
+
+      <form onsubmit="handleHostSubmit(event)" class="flex-1 overflow-y-auto p-5 sm:p-6 space-y-4 custom-scrollbar">
+        <div>
+          <label class="block text-xs font-semibold uppercase text-gray-700 mb-1">Property Title</label>
+          <input id="host-form-title" type="text" placeholder="e.g. Coorg Teakwood Estate Villa" required class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm" />
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold uppercase text-gray-700 mb-1">City / Destination in India</label>
+          <input id="host-form-city" type="text" placeholder="e.g. Coorg, Karnataka" required class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm" />
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold uppercase text-gray-700 mb-1">Price per Night (₹ INR)</label>
+          <input id="host-form-price" type="number" placeholder="18500" required class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm" />
+        </div>
+
+        <div class="space-y-1.5 pt-2 border-t border-gray-100">
+          <label class="block text-xs font-semibold uppercase text-gray-700">🖼️ Property Image Photo Upload (URL / Freepik)</label>
+          <input id="host-form-image" type="url" placeholder="Paste Image URL (e.g. https://images.unsplash.com/...)" class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm" value="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=1200&q=80" />
+          <p class="text-[11px] text-gray-500">Property high-res photos will be stored in Firebase Storage and linked in Firestore.</p>
+        </div>
+
+        <button type="submit" class="w-full bg-black text-white font-bold py-3.5 rounded-2xl hover:bg-neutral-800 shadow-md mt-2 text-xs sm:text-sm">
+          Publish Property to Firebase ➔
+        </button>
+      </form>
+
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="bg-white border-t border-gray-200/80 py-10 sm:py-12 mt-16 sm:mt-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+      
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 pb-8 border-b border-gray-100 text-sm">
+        <div class="space-y-3 sm:col-span-2 md:col-span-1">
+          <div class="flex items-center space-x-2">
+            <div class="w-8 h-8 bg-black text-white font-black rounded-lg flex items-center justify-center text-base font-display">H</div>
+            <span class="font-extrabold text-lg font-display">HavenStays India</span>
+          </div>
+          <p class="text-xs text-gray-500 leading-relaxed font-normal">
+            India's premier human-to-human luxury booking platform. Zero AI algorithms or synthetic bot matchmakers.
+          </p>
+        </div>
+
+        <div>
+          <h4 class="font-bold text-gray-900 text-xs uppercase tracking-wider mb-3 font-display">Popular Destinations</h4>
+          <ul class="space-y-2 text-xs text-gray-600 font-medium">
+            <li><a href="#" onclick="quickFilter('Manali')" class="hover:text-black">Manali, Himachal Pradesh</a></li>
+            <li><a href="#" onclick="quickFilter('Goa')" class="hover:text-black">North & South Goa</a></li>
+            <li><a href="#" onclick="quickFilter('Udaipur')" class="hover:text-black">Udaipur, Rajasthan</a></li>
+            <li><a href="#" onclick="quickFilter('Munnar')" class="hover:text-black">Munnar, Kerala</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="font-bold text-gray-900 text-xs uppercase tracking-wider mb-3 font-display">Explore & Contact</h4>
+          <ul class="space-y-2 text-xs text-gray-600 font-medium">
+            <li><a href="#" onclick="showPage('all-stays')" class="hover:text-black">Explore All Indian Stays</a></li>
+            <li><a href="#" onclick="showPage('gallery')" class="hover:text-black">Guest Experiences Gallery</a></li>
+            <li><a href="#" onclick="showPage('contact')" class="hover:text-black">Contact Us (24/7 Helpline)</a></li>
+            <li><a href="#" onclick="showPage('host-dash')" class="hover:text-black">Host Command Portal</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="font-bold text-gray-900 text-xs uppercase tracking-wider mb-3 font-display">Direct Human Guarantee</h4>
+          <p class="text-xs text-gray-500">100% direct host booking with WebAuthn biometric security settlement.</p>
+        </div>
+      </div>
+
+      <div class="flex flex-col sm:flex-row justify-between items-center text-xs text-gray-400 gap-3 text-center sm:text-left font-medium">
+        <p>© 2026 HavenStays India Inc. Curated Indian Luxury Stays.</p>
+        <div class="flex items-center space-x-4">
+          <span class="font-bold text-gray-700">₹ INR (Indian Rupee)</span>
+          <span>•</span>
+          <span>English (IN)</span>
+        </div>
+      </div>
+
+    </div>
+  </footer>
+
+  <script>
+    const GALLERY_IMAGES = [
+      {
+        id: 'gal_1',
+        title: 'Solang Snow Peak Chalet View',
+        location: 'Solang Valley Glass Chalet, Manali',
+        city: 'Manali',
+        image: 'https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=1200&q=80',
+        caption: 'Guests enjoying hot Himalayan filter coffee on the glass chalet terrace overlooking Solang snow peaks.',
+        gridSpan: 'sm:col-span-2 sm:row-span-2'
+      },
+      {
+        id: 'gal_2',
+        title: 'Wood-Fired Cedar Tub Spa',
+        location: 'Solang Valley Glass Chalet, Manali',
+        city: 'Manali',
+        image: 'https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=1200&q=80',
+        caption: 'Relaxing in the wood-fired cedar tub amidst pine trees in Himachal Pradesh.',
+        gridSpan: 'sm:col-span-1 sm:row-span-2'
+      },
+      {
+        id: 'gal_3',
+        title: 'Vagator Oceanfront Sunset Pool',
+        location: 'Portuguese Heritage Villa, Goa',
+        city: 'Goa',
+        image: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1200&q=80',
+        caption: 'Sunset views over the Arabian Sea from the cliffside infinity saltwater pool.',
+        gridSpan: 'sm:col-span-1 sm:row-span-1'
+      },
+      {
+        id: 'gal_4',
+        title: 'Cozy Stone Fireplace Evening',
+        location: 'Solang Valley Glass Chalet, Manali',
+        city: 'Manali',
+        image: 'https://images.unsplash.com/photo-1518780664697-55e3ad937233?auto=format&fit=crop&w=1200&q=80',
+        caption: 'Unwinding around the handcrafted stone fireplace after a snow walk in Manali.',
+        gridSpan: 'sm:col-span-1 sm:row-span-1'
+      },
+      {
+        id: 'gal_5',
+        title: 'Sunset Beach Cove Stroll',
+        location: 'Portuguese Heritage Villa, Goa',
+        city: 'Goa',
+        image: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=80',
+        caption: 'Direct private cove beach access for evening walks along Vagator shore.',
+        gridSpan: 'sm:col-span-2 sm:row-span-1'
+      },
+      {
+        id: 'gal_6',
+        title: 'Tropical Veranda Breakfast',
+        location: 'Portuguese Heritage Villa, Goa',
+        city: 'Goa',
+        image: 'https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?auto=format&fit=crop&w=1200&q=80',
+        caption: 'Fresh Goan tropical fruit breakfast served on the azulejo tiled veranda.',
+        gridSpan: 'sm:col-span-1 sm:row-span-2'
+      },
+      {
+        id: 'gal_7',
+        title: 'Lake Pichola Palace Balcony',
+        location: 'The Lake Pichola Royal Haveli, Udaipur',
+        city: 'Udaipur',
+        image: 'https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1200&q=80',
+        caption: 'Panoramic balcony view of City Palace & Lake Pichola in Rajasthan.',
+        gridSpan: 'sm:col-span-1 sm:row-span-1'
+      },
+      {
+        id: 'gal_8',
+        title: 'Royal Courtyard Candlelit Thali',
+        location: 'The Lake Pichola Royal Haveli, Udaipur',
+        city: 'Udaipur',
+        image: 'https://images.unsplash.com/photo-1582719508461-905c673771fd?auto=format&fit=crop&w=1200&q=80',
+        caption: 'Authentic Rajasthani thali dinner under the stars in the historic 300-year-old courtyard.',
+        gridSpan: 'sm:col-span-2 sm:row-span-1'
+      },
+      {
+        id: 'gal_9',
+        title: 'Shikara Boat Entrance',
+        location: 'The Lake Pichola Royal Haveli, Udaipur',
+        city: 'Udaipur',
+        image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=1200&q=80',
+        caption: 'Private wooden Shikara boat transfer directly to the haveli doorstep.',
+        gridSpan: 'sm:col-span-1 sm:row-span-1'
+      },
+      {
+        id: 'gal_10',
+        title: 'Cloud Valley Tea Garden Deck',
+        location: 'Munnar Cloud Valley Treehouse, Kerala',
+        city: 'Munnar',
+        image: 'https://images.unsplash.com/photo-1587061949409-02df41d5e562?auto=format&fit=crop&w=1200&q=80',
+        caption: 'Waking up above mist-covered tea gardens on the elevated teakdeck treehouse.',
+        gridSpan: 'sm:col-span-2 sm:row-span-2'
+      },
+      {
+        id: 'gal_11',
+        title: 'Ayurvedic Tea Trail Walk',
+        location: 'Munnar Cloud Valley Treehouse, Kerala',
+        city: 'Munnar',
+        image: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=1200&q=80',
+        caption: 'Guests taking a morning tea tasting walk through 40 acres of private organic tea fields.',
+        gridSpan: 'sm:col-span-1 sm:row-span-1'
+      },
+      {
+        id: 'gal_12',
+        title: 'Stargazing Mountain Firepit',
+        location: 'Solang Valley Glass Chalet, Manali',
+        city: 'Manali',
+        image: 'https://images.unsplash.com/photo-1510414842594-a61c69b5ae57?auto=format&fit=crop&w=1200&q=80',
+        caption: 'Clear Himalayan night sky stargazing around the outdoor stone firepit.',
+        gridSpan: 'sm:col-span-1 sm:row-span-1'
+      }
+    ];
+
+    const INITIAL_PROPERTIES = [
+      {
+        id: 'prop_01',
+        hostId: 'host_001',
+        title: 'The Solang Valley Glass Chalet & Cedar Spa',
+        tagline: 'Secluded Himalayan glass chalet with snow peak views.',
+        description: 'Nestled amidst deodar forests in Manali, this handcrafted cedar and glass chalet offers unobstructed 360-degree views of Solang snow peaks. Features a private wood-fired cedar tub, radiant floor heating, open fireplace, and traditional Himachali dining.',
+        price: 16500,
+        cleaning: 2500,
+        rating: 4.98,
+        reviews: 52,
+        city: 'Manali, Himachal Pradesh',
+        specs: { guests: 4, bedrooms: 2, beds: 2, baths: 2 },
+        hostName: 'Vikramaditya Thorne',
+        hostAvatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80',
+        amenities: ['Cedar Wood Hot Tub', 'Himalayan Peak View', 'Full Himachali Kitchen', 'Stone Fireplace', 'High-Speed Satellite Wi-Fi', 'EV Charger'],
+        images: [
+          'https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=1200&q=80',
+          'https://images.unsplash.com/photo-1518780664697-55e3ad937233?auto=format&fit=crop&w=800&q=80',
+        ]
+      },
+      {
+        id: 'prop_02',
+        hostId: 'host_002',
+        title: 'Portuguese Heritage Beachfront Villa & Saltwater Pool',
+        tagline: 'Private oceanfront sanctuary on Vagator cliffside.',
+        description: 'Restored 19th-century Portuguese estate overlooking Arabian Sea waters in North Goa. Features a cliffside infinity saltwater pool, azulejo tile courtyards, teakwood sundecks, and direct access to a private cove.',
+        price: 28000,
+        cleaning: 3500,
+        rating: 4.96,
+        reviews: 41,
+        city: 'Goa, India',
+        specs: { guests: 6, bedrooms: 3, beds: 3, baths: 3.5 },
+        hostName: 'Ananya Deshmukh',
+        hostAvatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80',
+        amenities: ['Infinity Saltwater Pool', 'Arabian Sea Sunset Deck', 'Private Cove Access', 'Goan Seafood Butler'],
+        images: [
+          'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1200&q=80',
+          'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80',
+        ]
+      },
+      {
+        id: 'prop_03',
+        hostId: 'host_003',
+        title: 'The Lake Pichola Royal Haveli & Courtyard',
+        tagline: 'Historic royal suite with Lake Pichola palace views.',
+        description: 'Immerse yourself in Rajasthani royalty at this restored 300-year-old lakeside haveli in Udaipur. Features Jharokha stone balconies framing City Palace views, marble baths, and private boat transfers.',
+        price: 22500,
+        cleaning: 3000,
+        rating: 4.97,
+        reviews: 68,
+        city: 'Udaipur, Rajasthan',
+        specs: { guests: 4, bedrooms: 2, beds: 2, baths: 2 },
+        hostName: 'Maharana Ranveer Singh',
+        hostAvatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=400&q=80',
+        amenities: ['Lake Pichola Palace View', 'Carved Stone Jharokhas', 'Private Shikara Boat', 'Royal Thali Chef'],
+        images: [
+          'https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1200&q=80',
+          'https://images.unsplash.com/photo-1582719508461-905c673771fd?auto=format&fit=crop&w=800&q=80',
+        ]
+      },
+      {
+        id: 'prop_04',
+        hostId: 'host_004',
+        title: 'Munnar Cloud Valley Estate & Tea Plantation Treehouse',
+        tagline: 'Elevated wooden sanctuary above mist-covered tea gardens.',
+        description: 'Surrounded by 40 acres of private organic tea plantations in Munnar, Kerala. Wake up above cloud cover with Ayurvedic breakfast served on your wrap-around teak deck.',
+        price: 14500,
+        cleaning: 2000,
+        rating: 4.99,
+        reviews: 39,
+        city: 'Munnar, Kerala',
+        specs: { guests: 3, bedrooms: 1, beds: 1, baths: 1 },
+        hostName: 'Dr. Kurien Menon',
+        hostAvatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=400&q=80',
+        amenities: ['Tea Plantation Trek', 'Ayurvedic Kitchen', 'Cloud Valley Deck', 'Firewood Lounge'],
+        images: [
+          'https://images.unsplash.com/photo-1587061949409-02df41d5e562?auto=format&fit=crop&w=1200&q=80',
+          'https://images.unsplash.com/photo-1518780664697-55e3ad937233?auto=format&fit=crop&w=800&q=80',
+        ]
+      },
+      {
+        id: 'prop_05',
+        hostId: 'host_001',
+        title: 'Coorg Teakwood Estate Villa & Private Waterfall',
+        tagline: 'Private coffee plantation sanctuary with private waterfall access.',
+        description: 'Experience lush rainforest luxury at this 50-acre private coffee and spice plantation villa in Coorg. Features teakwood verandas, private waterfall plunge pools, organic Kodava dining, and estate birdwatching treks.',
+        price: 19500,
+        cleaning: 2800,
+        rating: 4.97,
+        reviews: 34,
+        city: 'Coorg, Karnataka',
+        specs: { guests: 6, bedrooms: 3, beds: 3, baths: 3 },
+        hostName: 'Deviah Bopanna',
+        hostAvatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80',
+        amenities: ['Private Waterfall', 'Coffee Estate Trek', 'Teakwood Veranda', 'Kodava Butler'],
+        images: [
+          'https://images.unsplash.com/photo-1587061949409-02df41d5e562?auto=format&fit=crop&w=1200&q=80',
+          'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80',
+        ]
+      },
+      {
+        id: 'prop_06',
+        hostId: 'host_005',
+        title: 'Dal Lake Royal Walnut Wood Houseboat',
+        tagline: 'Historic cedar wood houseboat floating on calm Dal Lake waters.',
+        description: 'Step into traditional Kashmiri elegance on this carved walnut wood luxury houseboat docked at Dal Lake, Srinagar. Features hand-woven Silk carpets, heated Khatamband ceilings, private Shikara rides, and Wazwan feasts.',
+        price: 21000,
+        cleaning: 2500,
+        rating: 4.99,
+        reviews: 58,
+        city: 'Srinagar, Jammu & Kashmir',
+        specs: { guests: 4, bedrooms: 2, beds: 2, baths: 2 },
+        hostName: 'Tariq Ahmed Mir',
+        hostAvatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=400&q=80',
+        amenities: ['Dal Lake Sunset View', 'Private Shikara Rides', 'Kashmiri Wazwan Chef', 'Heated Khatamband Rooms'],
+        images: [
+          'https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1200&q=80',
+          'https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=800&q=80',
+        ]
+      },
+      {
+        id: 'prop_07',
+        hostId: 'host_003',
+        title: 'Amer Fort Heritage Villa & Royal Courtyard',
+        tagline: 'Pink City heritage courtyard villa overlooking Amer Fort.',
+        description: 'A serene oasis in the heart of Jaipur. Built with traditional red sandstone, this restored heritage haveli features a marble courtyard pool, rooftop peacock terrace, private puppet performances, and authentic Rajasthani hospitality.',
+        price: 24500,
+        cleaning: 3200,
+        rating: 4.95,
+        reviews: 47,
+        city: 'Jaipur, Rajasthan',
+        specs: { guests: 6, bedrooms: 3, beds: 3, baths: 3 },
+        hostName: 'Rani Sunita Kumari',
+        hostAvatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80',
+        amenities: ['Amer Fort View Deck', 'Marble Courtyard Pool', 'Rooftop Lounge', 'Rajasthani Thali'],
+        images: [
+          'https://images.unsplash.com/photo-1582719508461-905c673771fd?auto=format&fit=crop&w=1200&q=80',
+          'https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=800&q=80',
+        ]
+      },
+      {
+        id: 'prop_08',
+        hostId: 'host_006',
+        title: 'Ganges Cliffside Glass Villa & Yoga Shala',
+        tagline: 'Peaceful Himalayan retreat overlooking the turquoise Ganges.',
+        description: 'Perched on a quiet cliff above the holy Ganges river in Rishikesh. Features private open-air yoga shala, organic Sattvic dining, infinity sound-bath pool, and evening Ganga Aarti concierge transfers.',
+        price: 17500,
+        cleaning: 2200,
+        rating: 4.98,
+        reviews: 62,
+        city: 'Rishikesh, Uttarakhand',
+        specs: { guests: 4, bedrooms: 2, beds: 2, baths: 2 },
+        hostName: 'Swami Anand Giri',
+        hostAvatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=400&q=80',
+        amenities: ['Ganges River View', 'Private Yoga Shala', 'Sattvic Kitchen', 'Cliffside Deck'],
+        images: [
+          'https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=1200&q=80',
+          'https://images.unsplash.com/photo-1518780664697-55e3ad937233?auto=format&fit=crop&w=800&q=80',
+        ]
+      },
+      {
+        id: 'prop_09',
+        hostId: 'host_004',
+        title: 'Vembanad Backwaters Luxury Kettuvallam',
+        tagline: 'Private luxury houseboat cruising the serene Kerala backwaters.',
+        description: 'Drift through palm-fringed canals on this traditional eco-luxury wooden Kettuvallam houseboat in Alleppey. Includes private chef preparing fresh Karimeen fish curry, sun deck, and village canoe excursions.',
+        price: 23000,
+        cleaning: 2500,
+        rating: 4.97,
+        reviews: 49,
+        city: 'Alleppey, Kerala',
+        specs: { guests: 4, bedrooms: 2, beds: 2, baths: 2 },
+        hostName: 'Captain Thomas Varghese',
+        hostAvatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80',
+        amenities: ['Backwater Cruise', 'Kerala Seafood Chef', 'Teakwood Sun Deck', 'Canoe Excursions'],
+        images: [
+          'https://images.unsplash.com/photo-1587061949409-02df41d5e562?auto=format&fit=crop&w=1200&q=80',
+          'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=800&q=80',
+        ]
+      },
+      {
+        id: 'prop_10',
+        hostId: 'host_001',
+        title: 'Shimla Colonial Heritage Manor & Apple Orchard',
+        tagline: 'British-era stone manor surrounded by blooming apple orchards.',
+        description: 'High in the pine forests of Shimla, this restored 1920s British colonial estate features antique fireplaces, bay window reading nooks, private apple picking in autumn, and panoramic Himalayan mountain views.',
+        price: 18900,
+        cleaning: 2600,
+        rating: 4.96,
+        reviews: 38,
+        city: 'Shimla, Himachal Pradesh',
+        specs: { guests: 5, bedrooms: 3, beds: 3, baths: 2.5 },
+        hostName: 'Major Gen. Gurpreet Singh',
+        hostAvatar: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=400&q=80',
+        amenities: ['Apple Orchard Pick', 'Colonial Fireplaces', 'Mountain Panorama', 'High Tea Veranda'],
+        images: [
+          'https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=1200&q=80',
+          'https://images.unsplash.com/photo-1518780664697-55e3ad937233?auto=format&fit=crop&w=800&q=80',
+        ]
+      },
+      {
+        id: 'prop_11',
+        hostId: 'host_007',
+        title: 'French Quarter Colonial Villa & Courtyard Pool',
+        tagline: 'Charming yellow French colonial villa in White Town.',
+        description: 'Located in the peaceful French Quarter of Pondicherry. Features high arched ceilings, yellow mustard lime-wash walls, private dip pool, bougainvillea balconies, and complimentary vintage bicycles.',
+        price: 15800,
+        cleaning: 2000,
+        rating: 4.94,
+        reviews: 53,
+        city: 'Pondicherry, India',
+        specs: { guests: 4, bedrooms: 2, beds: 2, baths: 2 },
+        hostName: 'Claire & Pierre Dupont',
+        hostAvatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80',
+        amenities: ['French White Town', 'Private Dip Pool', 'Vintage Bicycles', 'French Bakery Breakfast'],
+        images: [
+          'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1200&q=80',
+          'https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?auto=format&fit=crop&w=800&q=80',
+        ]
+      },
+      {
+        id: 'prop_12',
+        hostId: 'host_001',
+        title: 'Mullayanagiri Peak Coffee Glass Cottage',
+        tagline: 'Glass cottage overlooking Western Ghats coffee mountains.',
+        description: 'Perched on the slopes of Mullayanagiri peak in Chikmagalur. Enjoy panoramic views of mist-clad Western Ghats, private espresso tasting tours, heated Jacuzzi, and campfires under the stars.',
+        price: 16200,
+        cleaning: 2200,
+        rating: 4.97,
+        reviews: 29,
+        city: 'Chikmagalur, Karnataka',
+        specs: { guests: 4, bedrooms: 2, beds: 2, baths: 2 },
+        hostName: 'Aditya Hegde',
+        hostAvatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80',
+        amenities: ['Western Ghats View', 'Private Jacuzzi', 'Espresso Plantation Tour', 'Campfire Lounge'],
+        images: [
+          'https://images.unsplash.com/photo-1587061949409-02df41d5e562?auto=format&fit=crop&w=1200&q=80',
+          'https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=800&q=80',
+        ]
+      },
+      {
+        id: 'prop_13',
+        hostId: 'host_003',
+        title: 'Thar Desert Royal Sand Dunes Haveli & Tents',
+        tagline: 'Golden sandstone haveli & private desert safari.',
+        description: 'Located near the Sam sand dunes in Jaisalmer. Experience golden desert sunsets, camel safaris, stargazing dinners under clear desert skies, and royal Manganiyar folk musician performances.',
+        price: 20500,
+        cleaning: 2700,
+        rating: 4.98,
+        reviews: 45,
+        city: 'Jaisalmer, Rajasthan',
+        specs: { guests: 6, bedrooms: 3, beds: 3, baths: 3 },
+        hostName: 'Bhati Rawal Singh',
+        hostAvatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=400&q=80',
+        amenities: ['Thar Desert Dune Safari', 'Stargazing Lounge', 'Folk Music Dinners', 'Golden Sandstone Rooms'],
+        images: [
+          'https://images.unsplash.com/photo-1582719508461-905c673771fd?auto=format&fit=crop&w=1200&q=80',
+          'https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=800&q=80',
+        ]
+      },
+      {
+        id: 'prop_14',
+        hostId: 'host_004',
+        title: 'Wayanad Bamboo Forest Treehouse & Stream',
+        tagline: 'Secluded bamboo treehouse suspended over natural mountain stream.',
+        description: 'Immerse yourself in Wayanad wilderness. Features a bamboo treehouse built on twin ficus trees, natural stream dipping pool, organic spice farm tours, and Ayurvedic massage therapists.',
+        price: 13800,
+        cleaning: 1800,
+        rating: 4.99,
+        reviews: 33,
+        city: 'Wayanad, Kerala',
+        specs: { guests: 3, bedrooms: 1, beds: 1, baths: 1 },
+        hostName: 'Mathew & Mini Varghese',
+        hostAvatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=400&q=80',
+        amenities: ['Natural Stream Dip', 'Bamboo Treehouse', 'Spice Farm Tour', 'Ayurvedic Massage'],
+        images: [
+          'https://images.unsplash.com/photo-1587061949409-02df41d5e562?auto=format&fit=crop&w=1200&q=80',
+          'https://images.unsplash.com/photo-1518780664697-55e3ad937233?auto=format&fit=crop&w=800&q=80',
+        ]
+      }
+    ];
+
+    const INITIAL_BOOKINGS = [
+      {
+        id: 'bk_001',
+        guestId: 'guest@heavenstay.in',
+        guestName: 'Aarav Mehta',
+        guestPhone: '+91 98123 45678',
+        hostId: 'host_001',
+        hostName: 'Vikramaditya Thorne',
+        hostPhone: '+91 98765 43210',
+        propertyTitle: 'The Solang Valley Glass Chalet & Cedar Spa',
+        propertyCity: 'Manali, Himachal Pradesh',
+        propertyImage: 'https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=600&q=80',
+        checkIn: '2026-08-20',
+        checkOut: '2026-08-24',
+        nights: 4,
+        totalPaid: 73780,
+        txHash: 'BIO_WA_IN_9F2A',
+        status: 'Confirmed & Settled'
+      },
+      {
+        id: 'bk_002',
+        guestId: 'rohan@heavenstay.in',
+        guestName: 'Rohan Kapoor',
+        guestPhone: '+91 97890 12345',
+        hostId: 'host_001',
+        hostName: 'Vikramaditya Thorne',
+        hostPhone: '+91 98765 43210',
+        propertyTitle: 'The Solang Valley Glass Chalet & Cedar Spa',
+        propertyCity: 'Manali, Himachal Pradesh',
+        propertyImage: 'https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=600&q=80',
+        checkIn: '2026-07-01',
+        checkOut: '2026-07-06',
+        nights: 5,
+        totalPaid: 124460,
+        txHash: 'BIO_WA_IN_3X81',
+        status: 'Completed & Rating 5.0'
+      }
+    ];
+
+    function loadStorageItem(key, fallback) {
+      try {
+        const item = localStorage.getItem(key);
+        if (item) return JSON.parse(item);
+      } catch(e) {}
+      return fallback;
+    }
+
+    function saveStorageItem(key, data) {
+      try {
+        localStorage.setItem(key, JSON.stringify(data));
+      } catch(e) {}
+    }
+
+    let storedProperties = loadStorageItem('haven_properties_db', INITIAL_PROPERTIES);
+    if (!Array.isArray(storedProperties) || storedProperties.length < INITIAL_PROPERTIES.length) {
+      const storedIds = new Set((storedProperties || []).map(p => p.id));
+      INITIAL_PROPERTIES.forEach(p => {
+        if (!storedIds.has(p.id)) storedProperties.push(p);
+      });
+      saveStorageItem('haven_properties_db', storedProperties);
+    }
+    let PROPERTIES = storedProperties;
+    let currentUser = loadStorageItem('haven_current_user', { name: 'Vikramaditya Thorne', email: 'host@heavenstay.in', role: 'host' });
+    let bookings = loadStorageItem('haven_bookings_db', INITIAL_BOOKINGS);
+
+    let currentProperty = PROPERTIES[0];
+    let currentAuthMode = 'login';
+
+    let guestState = { adults: 2, children: 0, males: 1, females: 1 };
+    let selectedCheckIn = '2026-08-20';
+    let selectedCheckOut = '2026-08-24';
+
+    let filterAllCity = 'all';
+    let filterAllPrice = 999999;
+    let filterAllSort = 'featured';
+    let selectedAuthRole = 'guest';
+
+    let currentActiveGallery = GALLERY_IMAGES;
+    let currentLightboxIndex = 0;
+
+    function formatINR(val) {
+      return '₹' + val.toLocaleString('en-IN');
+    }
+
+    function toggleMobileNav() {
+      const drawer = document.getElementById('mobile-nav-drawer');
+      drawer.classList.toggle('hidden');
+    }
+
+    function renderGallery(filterCity = 'all') {
+      const grid = document.getElementById('gallery-grid');
+      
+      if (filterCity === 'all') {
+        currentActiveGallery = GALLERY_IMAGES;
+      } else {
+        currentActiveGallery = GALLERY_IMAGES.filter(img => img.city.toLowerCase() === filterCity.toLowerCase());
+      }
+
+      grid.innerHTML = currentActiveGallery.map((img, idx) => `
+        <div onclick="openGalleryLightbox(${idx})" class="group relative cursor-pointer rounded-3xl overflow-hidden shadow-md hover:shadow-2xl transition-all duration-300 ${img.gridSpan}">
+          <img src="${img.image}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+          
+          <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4 sm:p-5 text-white">
+            <span class="text-[10px] font-extrabold uppercase tracking-wider text-emerald-400">📍 ${img.location}</span>
+            <h4 class="font-bold text-sm sm:text-base font-display mt-0.5">${img.title}</h4>
+            <p class="text-[11px] sm:text-xs text-neutral-300 line-clamp-2 mt-1 font-normal">${img.caption}</p>
+            <div class="pt-2 sm:pt-3">
+              <span class="inline-block bg-white/20 backdrop-blur-md border border-white/30 text-white text-[10px] sm:text-[11px] font-bold px-2.5 py-1 rounded-full">
+                🔍 Click to Expand ➔
+              </span>
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function filterGallery(city) {
+      ['all', 'manali', 'goa', 'udaipur', 'munnar'].forEach(c => {
+        const btn = document.getElementById(`gfilter-${c}`);
+        if (btn) {
+          if (c === city.toLowerCase()) {
+            btn.className = "bg-black text-white px-4 py-2 rounded-xl transition-all shadow-sm";
+          } else {
+            btn.className = "bg-white hover:bg-gray-100 text-gray-700 border border-gray-200 px-4 py-2 rounded-xl transition-all";
+          }
+        }
+      });
+      renderGallery(city);
+    }
+
+    function openGalleryLightbox(index) {
+      currentLightboxIndex = index;
+      updateLightboxContent();
+      document.getElementById('modal-gallery-lightbox').classList.remove('hidden');
+    }
+
+    function updateLightboxContent() {
+      const item = currentActiveGallery[currentLightboxIndex];
+      if (!item) return;
+
+      document.getElementById('lightbox-counter').innerText = `Photo ${currentLightboxIndex + 1} of ${currentActiveGallery.length}`;
+      document.getElementById('lightbox-title').innerText = item.title;
+      document.getElementById('lightbox-image').src = item.image;
+      document.getElementById('lightbox-caption').innerText = item.caption;
+      document.getElementById('lightbox-location').innerText = `📍 ${item.location}`;
+    }
+
+    function navigateGallery(direction) {
+      currentLightboxIndex = (currentLightboxIndex + direction + currentActiveGallery.length) % currentActiveGallery.length;
+      updateLightboxContent();
+    }
+
+    function closeGalleryLightbox() {
+      document.getElementById('modal-gallery-lightbox').classList.add('hidden');
+    }
+
+    document.addEventListener('keydown', function(e) {
+      const modal = document.getElementById('modal-gallery-lightbox');
+      if (!modal.classList.contains('hidden')) {
+        if (e.key === 'ArrowLeft') navigateGallery(-1);
+        if (e.key === 'ArrowRight') navigateGallery(1);
+        if (e.key === 'Escape') closeGalleryLightbox();
+      }
+    });
+
+    function handleManualDateChange() {
+      const cin = document.getElementById('calendar-manual-in').value;
+      const cout = document.getElementById('calendar-manual-out').value;
+      if (cin && cout && cin < cout) {
+        setCalendarRange(cin, cout);
+      }
+    }
+
+    function openHostPayoutModal() {
+      const hostId = currentUser ? (currentUser.email === 'host@heavenstay.in' ? 'host_001' : currentUser.email) : 'host_001';
+      const hostBookings = bookings.filter(b => b.hostId === hostId || hostId === 'host_001');
+      const totalPayout = hostBookings.reduce((sum, b) => sum + (b.totalPaid || 0), 0);
+
+      document.getElementById('payout-modal-total').innerText = formatINR(totalPayout > 0 ? totalPayout : 198240);
+
+      const listContainer = document.getElementById('payout-modal-list');
+      listContainer.innerHTML = hostBookings.map(b => `
+        <div class="bg-gray-50 p-4 rounded-2xl border border-gray-200 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
+          <div>
+            <div class="flex items-center space-x-2">
+              <span class="font-bold text-sm text-gray-900">${b.guestName}</span>
+              <span class="bg-emerald-100 text-emerald-800 text-[10px] font-bold px-2 py-0.5 rounded-full">WebAuthn Settled</span>
+            </div>
+            <p class="text-xs text-gray-600 mt-0.5">${b.propertyTitle}</p>
+            <p class="text-[11px] text-gray-400 font-mono mt-0.5">TxHash: ${b.txHash} • Dates: ${b.checkIn} to ${b.checkOut}</p>
+          </div>
+          <div class="text-left sm:text-right flex-shrink-0">
+            <span class="text-base sm:text-lg font-black text-gray-900 font-display">${formatINR(b.totalPaid)}</span>
+            <span class="block text-[10px] text-gray-500">100% Direct Payout</span>
+          </div>
+        </div>
+      `).join('');
+
+      document.getElementById('modal-host-payout').classList.remove('hidden');
+    }
+
+    function openHostCompletedStaysModal() {
+      const hostId = currentUser ? (currentUser.email === 'host@heavenstay.in' ? 'host_001' : currentUser.email) : 'host_001';
+      const hostBookings = bookings.filter(b => b.hostId === hostId || hostId === 'host_001');
+
+      const listContainer = document.getElementById('completed-stays-modal-list');
+      listContainer.innerHTML = hostBookings.map(b => `
+        <div class="bg-white p-4 sm:p-5 rounded-2xl border border-gray-200 shadow-sm space-y-3">
+          <div class="flex justify-between items-start">
+            <div>
+              <span class="text-xs font-bold text-blue-600 uppercase tracking-wider">📍 ${b.propertyCity}</span>
+              <h4 class="font-bold text-sm sm:text-base text-gray-900 font-display mt-0.5">${b.propertyTitle}</h4>
+            </div>
+            <span class="bg-amber-50 text-amber-800 border border-amber-200 px-2 py-0.5 rounded-full text-[11px] font-bold">
+              ★ 5.0
+            </span>
+          </div>
+          <div class="grid grid-cols-2 sm:grid-cols-3 gap-2 bg-gray-50 p-3 rounded-xl text-xs">
+            <div>
+              <span class="block text-[10px] font-extrabold uppercase text-gray-400">Guest Name</span>
+              <span class="font-bold text-gray-900">${b.guestName}</span>
+            </div>
+            <div>
+              <span class="block text-[10px] font-extrabold uppercase text-gray-400">Contact</span>
+              <span class="font-semibold text-gray-700">${b.guestPhone || '+91 98123 45678'}</span>
+            </div>
+            <div class="col-span-2 sm:col-span-1">
+              <span class="block text-[10px] font-extrabold uppercase text-gray-400">Duration</span>
+              <span class="font-bold text-gray-900">${b.nights} Nights</span>
+            </div>
+          </div>
+          <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 pt-2 text-xs border-t border-gray-100">
+            <span class="text-gray-500">Dates: <strong>${b.checkIn}</strong> to <strong>${b.checkOut}</strong></span>
+            <button onclick="alert('Calling Guest ${b.guestName} (${b.guestPhone || '+91 98123 45678'})...')" class="w-full sm:w-auto bg-black text-white text-xs font-bold px-3.5 py-1.5 rounded-xl hover:bg-neutral-800">
+              Call Guest
+            </button>
+          </div>
+        </div>
+      `).join('');
+
+      document.getElementById('modal-host-stays').classList.remove('hidden');
+    }
+
+    function openHostListingsModal() {
+      const hostId = currentUser ? (currentUser.email === 'host@heavenstay.in' ? 'host_001' : currentUser.email) : 'host_001';
+      const hostProps = PROPERTIES.filter(p => p.hostId === hostId || hostId === 'host_001');
+
+      const gridContainer = document.getElementById('listings-modal-grid');
+      gridContainer.innerHTML = hostProps.map(p => `
+        <div class="bg-white rounded-2xl border border-gray-200 overflow-hidden shadow-sm flex flex-col justify-between p-3 space-y-3">
+          <div class="aspect-[16/9] rounded-xl overflow-hidden bg-gray-100 relative">
+            <img src="${p.images[0]}" class="w-full h-full object-cover" />
+            <span class="absolute top-2 right-2 bg-black text-white text-[10px] font-bold px-2 py-0.5 rounded-full">
+              ${formatINR(p.price)}/night
+            </span>
+          </div>
+          <div>
+            <h4 class="font-bold text-xs text-gray-900 line-clamp-1 font-display">${p.title}</h4>
+            <p class="text-[11px] text-gray-500">📍 ${p.city}</p>
+          </div>
+          <div class="flex justify-between items-center pt-2 border-t border-gray-100 text-xs">
+            <button onclick="handleEditPropertyPrice('${p.id}'); openHostListingsModal();" class="text-blue-600 font-bold hover:underline">Edit Price</button>
+            <button onclick="handleDeleteProperty('${p.id}'); openHostListingsModal();" class="text-red-600 font-bold hover:underline">Delete</button>
+          </div>
+        </div>
+      `).join('');
+
+      document.getElementById('modal-host-listings').classList.remove('hidden');
+    }
+
+    function closeModal(id) {
+      document.getElementById(id).classList.add('hidden');
+    }
+
+    function adjustGuestCount(category, delta) {
+      if (category === 'adults') {
+        guestState.adults = Math.max(1, guestState.adults + delta);
+      } else if (category === 'children') {
+        guestState.children = Math.max(0, guestState.children + delta);
+      } else if (category === 'males') {
+        guestState.males = Math.max(0, guestState.males + delta);
+      } else if (category === 'females') {
+        guestState.females = Math.max(0, guestState.females + delta);
+      }
+
+      document.getElementById('count-adults').innerText = guestState.adults;
+      document.getElementById('count-children').innerText = guestState.children;
+      document.getElementById('count-males').innerText = guestState.males;
+      document.getElementById('count-females').innerText = guestState.females;
+
+      document.getElementById('detail-count-adults').innerText = guestState.adults;
+      document.getElementById('detail-count-children').innerText = guestState.children;
+      document.getElementById('detail-count-males').innerText = guestState.males;
+      document.getElementById('detail-count-females').innerText = guestState.females;
+
+      const totalGuests = guestState.adults + guestState.children;
+      const summaryStr = `${totalGuests} ${totalGuests === 1 ? 'Guest' : 'Guests'} (${guestState.males} M, ${guestState.females} F)`;
+
+      document.getElementById('hero-guest-summary').innerText = summaryStr;
+      document.getElementById('detail-guests-summary').innerText = summaryStr;
+
+      recalculatePrice();
+    }
+
+    function setCalendarRange(checkin, checkout) {
+      selectedCheckIn = checkin;
+      selectedCheckOut = checkout;
+
+      const d1 = new Date(checkin);
+      const d2 = new Date(checkout);
+      const nights = Math.max(1, Math.ceil((d2 - d1) / (1000 * 60 * 60 * 24)));
+      const options = { month: 'short', day: 'numeric', year: 'numeric' };
+
+      document.getElementById('detail-checkin-display').innerText = d1.toLocaleDateString('en-US', options);
+      document.getElementById('detail-checkout-display').innerText = d2.toLocaleDateString('en-US', options);
+
+      const badge = document.getElementById('calendar-nights-badge');
+      if (badge) badge.innerText = `${nights} ${nights === 1 ? 'Night' : 'Nights'} Selected`;
+
+      const manualIn = document.getElementById('calendar-manual-in');
+      const manualOut = document.getElementById('calendar-manual-out');
+      if (manualIn) manualIn.value = checkin;
+      if (manualOut) manualOut.value = checkout;
+
+      recalculatePrice();
+    }
+
+    function selectCalendarPreset(type) {
+      if (type === 'weekend') {
+        setCalendarRange('2026-08-21', '2026-08-23');
+      } else if (type === 'nextweek') {
+        setCalendarRange('2026-08-24', '2026-08-28');
+      } else if (type === '7days') {
+        setCalendarRange('2026-08-20', '2026-08-27');
+      }
+    }
+
+    function toggleDropdown(id) {
+      const popover = document.getElementById(id);
+      const isHidden = popover.classList.contains('hidden');
+      closeAllDropdowns();
+      if (isHidden) popover.classList.remove('hidden');
+    }
+
+    function closeAllDropdowns() {
+      const ids = [
+        'hero-guest-counter-popover',
+        'custom-calendar-popover',
+        'all-city-popover',
+        'all-price-popover',
+        'all-sort-popover',
+        'contact-subject-popover',
+        'detail-guests-popover',
+        'auth-role-popover'
+      ];
+      ids.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.classList.add('hidden');
+      });
+    }
+
+    document.addEventListener('click', function(e) {
+      if (!e.target.closest('.relative')) {
+        closeAllDropdowns();
+      }
+    });
+
+    function selectAllCity(val, label) {
+      filterAllCity = val;
+      document.getElementById('all-city-label').innerText = label;
+      closeAllDropdowns();
+      handleApplyAllStaysFilters();
+    }
+
+    function selectAllPrice(val, label) {
+      filterAllPrice = val;
+      document.getElementById('all-price-label').innerText = label;
+      closeAllDropdowns();
+      handleApplyAllStaysFilters();
+    }
+
+    function selectAllSort(val, label) {
+      filterAllSort = val;
+      document.getElementById('all-sort-label').innerText = label;
+      closeAllDropdowns();
+      handleApplyAllStaysFilters();
+    }
+
+    function selectContactSubject(label) {
+      document.getElementById('contact-subject-label').innerText = label;
+      closeAllDropdowns();
+    }
+
+    function selectAuthRole(role, label) {
+      selectedAuthRole = role;
+      document.getElementById('auth-role-label').innerText = label;
+      closeAllDropdowns();
+    }
+
+    function updateAuthHeaderUI() {
+      const guestMenu = document.getElementById('header-guest-menu');
+      const hostMenu = document.getElementById('header-host-menu');
+      const loggedOutMenu = document.getElementById('header-logged-out-menu');
+
+      const mobGuest = document.getElementById('mobile-guest-menu');
+      const mobHost = document.getElementById('mobile-host-menu');
+      const mobLoggedOut = document.getElementById('mobile-logged-out-menu');
+
+      if (!currentUser) {
+        loggedOutMenu.classList.remove('hidden');
+        guestMenu.classList.add('hidden');
+        hostMenu.classList.add('hidden');
+
+        if (mobLoggedOut) mobLoggedOut.classList.remove('hidden');
+        if (mobGuest) mobGuest.classList.add('hidden');
+        if (mobHost) mobHost.classList.add('hidden');
+      } else if (currentUser.role === 'host') {
+        loggedOutMenu.classList.add('hidden');
+        guestMenu.classList.add('hidden');
+        hostMenu.classList.remove('hidden');
+        document.getElementById('host-display-name').innerText = currentUser.name.split(' ')[0];
+
+        if (mobLoggedOut) mobLoggedOut.classList.add('hidden');
+        if (mobGuest) mobGuest.classList.add('hidden');
+        if (mobHost) mobHost.classList.remove('hidden');
+      } else {
+        loggedOutMenu.classList.add('hidden');
+        guestMenu.classList.remove('hidden');
+        hostMenu.classList.add('hidden');
+        document.getElementById('user-display-name').innerText = currentUser.name.split(' ')[0];
+
+        if (mobLoggedOut) mobLoggedOut.classList.add('hidden');
+        if (mobGuest) mobGuest.classList.remove('hidden');
+        if (mobHost) mobHost.classList.add('hidden');
+      }
+    }
+
+    function handleLogout() {
+      currentUser = null;
+      saveStorageItem('haven_current_user', null);
+      updateAuthHeaderUI();
+      showPage('home');
+      alert('You have logged out.');
+    }
+
+    function renderPropertyGrid(filteredProps = PROPERTIES) {
+      const grid = document.getElementById('property-grid');
+      // Homepage shows strictly the top 6 featured properties
+      const homeFeaturedProps = filteredProps.slice(0, 6);
+
+      const btnCount = document.getElementById('btn-view-all-count');
+      if (btnCount) btnCount.innerText = `View All Stays (${PROPERTIES.length} Properties)`;
+
+      grid.innerHTML = homeFeaturedProps.map(p => `
+        <div onclick="openPropertyDetails('${p.id}')" class="group cursor-pointer space-y-3">
+          <div class="relative aspect-[4/3] rounded-2xl overflow-hidden bg-gray-100 shadow-sm border border-gray-100">
+            <img src="${p.images[0]}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+            <div class="absolute top-3 left-3 bg-white/90 backdrop-blur-md px-2.5 py-1 rounded-full text-xs font-semibold shadow-sm">
+              ★ ${p.rating} (${p.reviews})
+            </div>
+            <div class="absolute top-3 right-3 bg-white/90 backdrop-blur-md px-2.5 py-0.5 rounded-full text-[11px] font-bold text-emerald-800">
+              Verified Host
+            </div>
+          </div>
+          <div class="space-y-1">
+            <h3 class="font-bold text-gray-900 text-base group-hover:text-blue-600 transition-colors font-display">${p.title}</h3>
+            <p class="text-xs text-gray-500 font-medium">📍 ${p.city}</p>
+            <div class="pt-1 flex items-baseline space-x-1">
+              <span class="text-lg font-extrabold text-gray-900 font-display">${formatINR(p.price)}</span>
+              <span class="text-xs text-gray-500 font-medium">/ night</span>
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function renderAllStaysPage(propsList = PROPERTIES) {
+      const grid = document.getElementById('all-stays-grid');
+      grid.innerHTML = propsList.map(p => `
+        <div onclick="openPropertyDetails('${p.id}')" class="group cursor-pointer space-y-3 bg-white p-4 rounded-3xl border border-gray-200 shadow-sm hover:shadow-md transition-shadow">
+          <div class="relative aspect-[4/3] rounded-2xl overflow-hidden bg-gray-100 shadow-sm">
+            <img src="${p.images[0]}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+            <div class="absolute top-3 left-3 bg-white/90 backdrop-blur-md px-2.5 py-1 rounded-full text-xs font-semibold shadow-sm">
+              ★ ${p.rating} (${p.reviews})
+            </div>
+          </div>
+          <div class="space-y-1">
+            <h3 class="font-bold text-gray-900 text-base group-hover:text-blue-600 transition-colors font-display">${p.title}</h3>
+            <p class="text-xs text-gray-500 font-medium">📍 ${p.city}</p>
+            <div class="pt-2 flex justify-between items-baseline border-t border-gray-100">
+              <span class="text-base sm:text-lg font-extrabold text-gray-900 font-display">${formatINR(p.price)} <span class="text-xs text-gray-500 font-normal">/ night</span></span>
+              <span class="text-xs font-bold text-blue-600 group-hover:underline">View Details ➔</span>
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function handleApplyAllStaysFilters() {
+      let filtered = PROPERTIES.filter(p => {
+        if (filterAllCity !== 'all' && !p.city.toLowerCase().includes(filterAllCity.toLowerCase())) return false;
+        if (p.price > filterAllPrice) return false;
+        return true;
+      });
+
+      if (filterAllSort === 'low-high') filtered.sort((a, b) => a.price - b.price);
+      if (filterAllSort === 'high-low') filtered.sort((a, b) => b.price - a.price);
+      if (filterAllSort === 'rating') filtered.sort((a, b) => b.rating - a.rating);
+
+      renderAllStaysPage(filtered);
+    }
+
+    function handleResetAllFilters() {
+      filterAllCity = 'all';
+      filterAllPrice = 999999;
+      filterAllSort = 'featured';
+      document.getElementById('all-city-label').innerText = 'All Destinations (India)';
+      document.getElementById('all-price-label').innerText = 'Any Price Range';
+      document.getElementById('all-sort-label').innerText = 'Featured First';
+      renderAllStaysPage(PROPERTIES);
+    }
+
+    function handleContactSubmit(e) {
+      e.preventDefault();
+      const name = document.getElementById('contact-name').value;
+      alert(`✓ Thank you ${name}! Your message has been routed to our 24/7 human support team. Concierge will respond within 30 minutes.`);
+      document.getElementById('contact-message').value = '';
+    }
+
+    function openPropertyDetails(id) {
+      const prop = PROPERTIES.find(p => p.id === id) || PROPERTIES[0];
+      currentProperty = prop;
+
+      document.getElementById('detail-title').innerText = prop.title;
+      document.getElementById('detail-tagline').innerText = prop.tagline;
+      document.getElementById('detail-description').innerText = prop.description;
+      document.getElementById('detail-location').innerText = prop.city;
+      
+      document.getElementById('spec-guests').innerText = prop.specs.guests;
+      document.getElementById('spec-bedrooms').innerText = prop.specs.bedrooms;
+      document.getElementById('spec-beds').innerText = prop.specs.beds;
+      document.getElementById('spec-baths').innerText = prop.specs.baths;
+
+      document.getElementById('host-name').innerText = 'Hosted by ' + prop.hostName;
+      document.getElementById('host-avatar').src = prop.hostAvatar;
+
+      document.getElementById('detail-amenities').innerHTML = prop.amenities.map(a => `
+        <div class="bg-white p-3 rounded-xl border border-gray-200 text-xs sm:text-sm font-medium flex items-center space-x-2">
+          <span class="text-blue-600 font-bold">✓</span>
+          <span>${a}</span>
+        </div>
+      `).join('');
+
+      document.getElementById('detail-bento').innerHTML = `
+        <div class="md:col-span-2 aspect-[4/3] bg-gray-100 overflow-hidden">
+          <img src="${prop.images[0]}" class="w-full h-full object-cover" />
+        </div>
+        <div class="hidden md:grid md:col-span-2 grid-cols-2 gap-2">
+          ${prop.images.slice(1, 5).map(img => `
+            <div class="aspect-square bg-gray-100 overflow-hidden">
+              <img src="${img}" class="w-full h-full object-cover" />
+            </div>
+          `).join('')}
+        </div>
+      `;
+
+      recalculatePrice();
+      showPage('details');
+    }
+
+    function recalculatePrice() {
+      const checkin = new Date(selectedCheckIn);
+      const checkout = new Date(selectedCheckOut);
+      const nights = Math.max(1, Math.ceil((checkout - checkin) / (1000 * 60 * 60 * 24)));
+
+      const baseTotal = currentProperty.price * nights;
+      const cleaning = currentProperty.cleaning;
+      const service = Math.round(baseTotal * 0.08);
+      const grandTotal = baseTotal + cleaning + service;
+
+      document.getElementById('booking-night-rate').innerText = formatINR(currentProperty.price);
+      document.getElementById('breakdown-nights-label').innerText = `${formatINR(currentProperty.price)} × ${nights} ${nights === 1 ? 'night' : 'nights'}`;
+      document.getElementById('breakdown-base-total').innerText = formatINR(baseTotal);
+      document.getElementById('breakdown-cleaning').innerText = formatINR(cleaning);
+      document.getElementById('breakdown-service').innerText = formatINR(service);
+      document.getElementById('breakdown-grand-total').innerText = formatINR(grandTotal);
+
+      return { nights, grandTotal };
+    }
+
+    function handleInitiateBooking() {
+      if (!currentUser) {
+        alert('🔑 Please create an account or sign in to book your stay!');
+        openAuthModal('register');
+        return;
+      }
+
+      const { grandTotal } = recalculatePrice();
+      document.getElementById('bio-confirm-guest-name').innerText = currentUser.name;
+      document.getElementById('bio-confirm-total-price').innerText = formatINR(grandTotal);
+
+      document.getElementById('modal-biometric').classList.remove('hidden');
+      document.getElementById('bio-step-1').classList.remove('hidden');
+      document.getElementById('bio-step-2').classList.add('hidden');
+      document.getElementById('bio-step-3').classList.add('hidden');
+    }
+
+    let pendingTxHash = '';
+
+    function startScanProcess() {
+      document.getElementById('bio-step-1').classList.add('hidden');
+      document.getElementById('bio-step-2').classList.remove('hidden');
+
+      setTimeout(() => {
+        pendingTxHash = 'BIO_WA_IN_' + Math.random().toString(36).substring(2, 8).toUpperCase();
+        document.getElementById('bio-txhash').innerText = 'TxHash: ' + pendingTxHash;
+        document.getElementById('bio-step-2').classList.add('hidden');
+        document.getElementById('bio-step-3').classList.remove('hidden');
+      }, 1000);
+    }
+
+    function completeBookingAndRedirect() {
+      const { nights, grandTotal } = recalculatePrice();
+
+      const newBooking = {
+        id: 'bk_' + Date.now(),
+        guestId: currentUser.email,
+        guestName: currentUser.name,
+        guestPhone: '+91 98123 45678',
+        hostId: currentProperty.hostId || 'host_001',
+        hostName: currentProperty.hostName || 'Vikramaditya Thorne',
+        hostPhone: '+91 98765 43210',
+        propertyTitle: currentProperty.title,
+        propertyCity: currentProperty.city,
+        propertyImage: currentProperty.images[0],
+        checkIn: selectedCheckIn,
+        checkOut: selectedCheckOut,
+        nights: nights,
+        totalPaid: grandTotal,
+        txHash: pendingTxHash,
+        status: 'Confirmed & Settled'
+      };
+
+      bookings.unshift(newBooking);
+      saveStorageItem('haven_bookings_db', bookings);
+
+      closeBiometricModal();
+      showPage('guest-dash');
+    }
+
+    function renderGuestDashboard() {
+      if (!currentUser) return;
+      document.getElementById('dash-guest-name').innerText = currentUser.name;
+
+      const guestBookings = bookings.filter(b => b.guestId === currentUser.email);
+      const listContainer = document.getElementById('guest-bookings-list');
+
+      if (guestBookings.length === 0) {
+        listContainer.innerHTML = `
+          <div class="col-span-2 bg-white border border-dashed border-gray-300 rounded-3xl p-8 text-center space-y-3">
+            <span class="text-3xl">🧳</span>
+            <h3 class="font-bold text-gray-900 text-lg font-display">No trips booked yet</h3>
+            <p class="text-xs text-gray-500 font-normal">Explore Manali, Goa, Udaipur, or Munnar stays and reserve with Touch ID biometrics.</p>
+            <button onclick="showPage('all-stays')" class="bg-black text-white text-xs font-bold px-4 py-2.5 rounded-xl hover:bg-neutral-800">Explore Stays ➔</button>
+          </div>
+        `;
+        return;
+      }
+
+      listContainer.innerHTML = guestBookings.map(b => `
+        <div class="bg-white rounded-3xl border border-gray-200 shadow-md overflow-hidden flex flex-col justify-between">
+          <div>
+            <div class="relative aspect-[16/9] bg-gray-100">
+              <img src="${b.propertyImage}" class="w-full h-full object-cover" />
+              <span class="absolute top-3 right-3 bg-emerald-600 text-white font-bold px-3 py-1 rounded-full text-xs shadow-md">
+                ✓ Touch ID Verified
+              </span>
+            </div>
+            <div class="p-5 sm:p-6 space-y-3">
+              <div>
+                <span class="text-xs font-bold text-blue-600 uppercase tracking-wider">📍 ${b.propertyCity}</span>
+                <h3 class="text-base sm:text-lg font-bold text-gray-900 mt-0.5 line-clamp-1 font-display">${b.propertyTitle}</h3>
+              </div>
+              <div class="grid grid-cols-2 gap-2 p-3 bg-gray-50 rounded-2xl text-xs">
+                <div>
+                  <span class="block text-[10px] font-extrabold uppercase text-gray-400">Check-In</span>
+                  <span class="font-bold text-gray-900">${b.checkIn}</span>
+                </div>
+                <div>
+                  <span class="block text-[10px] font-extrabold uppercase text-gray-400">Check-Out</span>
+                  <span class="font-bold text-gray-900">${b.checkOut}</span>
+                </div>
+              </div>
+              <div class="space-y-1 text-xs text-gray-600 pt-2 border-t border-gray-100">
+                <div class="flex justify-between">
+                  <span>Total Upfront Cost:</span>
+                  <span class="font-extrabold text-gray-900 font-display">${formatINR(b.totalPaid)}</span>
+                </div>
+                <div class="flex justify-between">
+                  <span>WebAuthn TxHash:</span>
+                  <span class="font-mono text-emerald-700 font-bold text-[11px]">${b.txHash}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="bg-gray-50 p-4 border-t border-gray-100 flex items-center justify-between">
+            <div class="text-xs">
+              <span class="block font-bold text-gray-900">Host: ${b.hostName}</span>
+              <span class="text-[11px] text-gray-500">${b.hostPhone}</span>
+            </div>
+            <button onclick="alert('Calling Host ${b.hostName} (${b.hostPhone})...')" class="bg-black text-white text-xs font-bold px-3.5 py-2 rounded-xl hover:bg-neutral-800">
+              Call Host
+            </button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function renderHostDashboard() {
+      const hostName = currentUser ? currentUser.name : 'Vikramaditya Thorne';
+      const hostId = currentUser ? (currentUser.email === 'host@heavenstay.in' ? 'host_001' : currentUser.email) : 'host_001';
+
+      document.getElementById('host-portal-name').innerText = hostName.split(' ')[0];
+      document.getElementById('host-modal-user-subtitle').innerText = `Logged in Host: ${hostName} (ID: ${hostId})`;
+
+      const hostBookings = bookings.filter(b => b.hostId === hostId || hostId === 'host_001');
+      const totalPayout = hostBookings.reduce((sum, b) => sum + (b.totalPaid || 0), 0);
+
+      document.getElementById('metric-host-payout').innerText = formatINR(totalPayout > 0 ? totalPayout : 198240);
+      document.getElementById('metric-host-stays').innerText = `${hostBookings.length > 0 ? hostBookings.length : 2} Stays`;
+
+      const hostProps = PROPERTIES.filter(p => p.hostId === hostId || hostId === 'host_001');
+      document.getElementById('metric-host-properties-count').innerText = `${hostProps.length > 0 ? hostProps.length : 5} Properties`;
+
+      const listContainer = document.getElementById('host-properties-list');
+      listContainer.innerHTML = hostProps.map(p => `
+        <div class="bg-white rounded-3xl border border-gray-200 overflow-hidden shadow-sm flex flex-col justify-between">
+          <div>
+            <div class="relative aspect-[16/9] bg-gray-100">
+              <img src="${p.images[0]}" class="w-full h-full object-cover" />
+              <span class="absolute top-3 right-3 bg-black text-white font-bold px-3 py-1 rounded-full text-xs shadow-md">
+                ${formatINR(p.price)}/night
+              </span>
+            </div>
+            <div class="p-5 space-y-2">
+              <h3 class="font-bold text-gray-900 text-base line-clamp-1 font-display">${p.title}</h3>
+              <p class="text-xs text-gray-500 font-medium">📍 ${p.city}</p>
+              <div class="flex items-center space-x-2 text-xs font-semibold text-gray-600 pt-1">
+                <span>★ ${p.rating} (${p.reviews} reviews)</span>
+              </div>
+            </div>
+          </div>
+          <div class="bg-gray-50 p-4 border-t border-gray-100 flex items-center justify-between">
+            <button onclick="handleEditPropertyPrice('${p.id}')" class="text-xs font-bold text-blue-600 hover:underline">
+              Edit Price (₹)
+            </button>
+            <button onclick="handleDeleteProperty('${p.id}')" class="text-xs font-bold text-red-600 hover:underline">
+              Delete Listing
+            </button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function handleEditPropertyPrice(propId) {
+      const prop = PROPERTIES.find(p => p.id === propId);
+      if (!prop) return;
+
+      const newPriceStr = prompt(`Enter new price per night (₹ INR) for "${prop.title}":`, prop.price);
+      if (newPriceStr && !isNaN(Number(newPriceStr))) {
+        prop.price = Number(newPriceStr);
+        saveStorageItem('haven_properties_db', PROPERTIES);
+        renderPropertyGrid();
+        renderHostDashboard();
+        alert(`✓ Price updated to ${formatINR(prop.price)} in database!`);
+      }
+    }
+
+    function handleDeleteProperty(propId) {
+      if (confirm('Are you sure you want to delete this property from the database?')) {
+        PROPERTIES = PROPERTIES.filter(p => p.id !== propId);
+        saveStorageItem('haven_properties_db', PROPERTIES);
+        renderPropertyGrid();
+        renderHostDashboard();
+        alert('✓ Property deleted from database.');
+      }
+    }
+
+    function setAuthMode(mode) {
+      currentAuthMode = mode;
+      const regBtn = document.getElementById('auth-mode-register');
+      const loginBtn = document.getElementById('auth-mode-login');
+      const title = document.getElementById('auth-modal-title');
+      const submitBtn = document.getElementById('auth-submit-btn');
+      const nameField = document.getElementById('field-name-container');
+      const roleField = document.getElementById('role-select-container');
+
+      if (mode === 'register') {
+        regBtn.className = "py-2.5 rounded-lg bg-white text-gray-900 shadow-sm transition-colors";
+        loginBtn.className = "py-2.5 rounded-lg text-gray-500 hover:text-gray-900 transition-colors";
+        title.innerText = "Create your account";
+        submitBtn.innerText = "Create Account & Log In ➔";
+        nameField.classList.remove('hidden');
+        roleField.classList.remove('hidden');
+      } else {
+        loginBtn.className = "py-2.5 rounded-lg bg-white text-gray-900 shadow-sm transition-colors";
+        regBtn.className = "py-2.5 rounded-lg text-gray-500 hover:text-gray-900 transition-colors";
+        title.innerText = "Sign In to HavenStays";
+        submitBtn.innerText = "Sign In ➔";
+        nameField.classList.add('hidden');
+        roleField.classList.add('hidden');
+      }
+    }
+
+    function quickAuth(role) {
+      if (role === 'host') {
+        currentUser = { name: 'Vikramaditya Thorne', email: 'host@heavenstay.in', role: 'host' };
+      } else {
+        currentUser = { name: 'Aarav Mehta', email: 'guest@heavenstay.in', role: 'guest' };
+      }
+      saveStorageItem('haven_current_user', currentUser);
+      closeAuthModal();
+      updateAuthHeaderUI();
+      if (role === 'host') showPage('host-dash'); else showPage('guest-dash');
+    }
+
+    function handleAuthSubmit(e) {
+      e.preventDefault();
+      const email = document.getElementById('auth-email').value;
+
+      if (currentAuthMode === 'register') {
+        const name = document.getElementById('auth-name').value || 'Aarav Mehta';
+        currentUser = { name, email, role: selectedAuthRole };
+        saveStorageItem('haven_current_user', currentUser);
+        alert(`✓ Account created successfully for ${name}!`);
+      } else {
+        const isHost = email.includes('host');
+        currentUser = { name: isHost ? 'Vikramaditya Thorne' : 'Aarav Mehta', email, role: isHost ? 'host' : 'guest' };
+        saveStorageItem('haven_current_user', currentUser);
+        alert(`✓ Signed in as ${currentUser.name}`);
+      }
+
+      closeAuthModal();
+      updateAuthHeaderUI();
+      if (currentUser.role === 'host') showPage('host-dash'); else showPage('guest-dash');
+    }
+
+    function handleSearchSubmit() {
+      const city = document.getElementById('search-city').value.toLowerCase();
+      const maxPrice = Number(document.getElementById('search-price').value);
+
+      const filtered = PROPERTIES.filter(p => {
+        if (city && !p.city.toLowerCase().includes(city)) return false;
+        if (maxPrice && p.price > maxPrice) return false;
+        return true;
+      });
+
+      renderPropertyGrid(filtered);
+      showPage('catalog');
+    }
+
+    function quickFilter(cityName) {
+      document.getElementById('search-city').value = cityName;
+      handleSearchSubmit();
+    }
+
+    function showPage(pageName) {
+      document.getElementById('view-home').classList.add('hidden');
+      document.getElementById('view-all-stays').classList.add('hidden');
+      document.getElementById('view-gallery').classList.add('hidden');
+      document.getElementById('view-contact').classList.add('hidden');
+      document.getElementById('view-details').classList.add('hidden');
+      document.getElementById('view-guest-dash').classList.add('hidden');
+      document.getElementById('view-host-dash').classList.add('hidden');
+
+      if (pageName === 'home' || pageName === 'catalog') {
+        document.getElementById('view-home').classList.remove('hidden');
+      } else if (pageName === 'all-stays') {
+        renderAllStaysPage();
+        document.getElementById('view-all-stays').classList.remove('hidden');
+      } else if (pageName === 'gallery') {
+        renderGallery('all');
+        document.getElementById('view-gallery').classList.remove('hidden');
+      } else if (pageName === 'contact') {
+        document.getElementById('view-contact').classList.remove('hidden');
+      } else if (pageName === 'details') {
+        document.getElementById('view-details').classList.remove('hidden');
+      } else if (pageName === 'guest-dash') {
+        renderGuestDashboard();
+        document.getElementById('view-guest-dash').classList.remove('hidden');
+      } else if (pageName === 'host-dash') {
+        renderHostDashboard();
+        document.getElementById('view-host-dash').classList.remove('hidden');
+      }
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function triggerHostPublishCheck() {
+      if (!currentUser || currentUser.role !== 'host') {
+        alert('🔒 Host Authentication Required! Please sign in as a Host before publishing property listings.');
+        openAuthModal('register');
+      } else {
+        openHostModal();
+      }
+    }
+
+    function openAuthModal(mode = 'login') {
+      setAuthMode(mode);
+      document.getElementById('modal-auth').classList.remove('hidden');
+    }
+    function closeAuthModal() {
+      document.getElementById('modal-auth').classList.add('hidden');
+    }
+
+    function triggerBiometricModal() {
+      document.getElementById('modal-biometric').classList.remove('hidden');
+      document.getElementById('bio-step-1').classList.remove('hidden');
+      document.getElementById('bio-step-2').classList.add('hidden');
+      document.getElementById('bio-step-3').classList.add('hidden');
+    }
+
+    function closeBiometricModal() {
+      document.getElementById('modal-biometric').classList.add('hidden');
+    }
+
+    function openHostModal() {
+      document.getElementById('modal-host').classList.remove('hidden');
+    }
+    function closeHostModal() {
+      document.getElementById('modal-host').classList.add('hidden');
+    }
+
+    function handleHostSubmit(e) {
+      e.preventDefault();
+      const title = document.getElementById('host-form-title').value;
+      const city = document.getElementById('host-form-city').value;
+      const price = Number(document.getElementById('host-form-price').value);
+      const customImg = document.getElementById('host-form-image').value || 'https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=1200&q=80';
+      const hostId = currentUser ? (currentUser.email === 'host@heavenstay.in' ? 'host_001' : currentUser.email) : 'host_001';
+
+      const newProp = {
+        id: 'prop_' + Date.now(),
+        hostId: hostId,
+        title,
+        tagline: 'Custom Indian host published stay',
+        description: 'Authentic human hosted stay in India with complete privacy.',
+        price,
+        cleaning: 2500,
+        rating: 5.00,
+        reviews: 1,
+        city,
+        specs: { guests: 4, bedrooms: 2, beds: 2, baths: 2 },
+        hostName: currentUser ? currentUser.name : 'Vikramaditya Thorne',
+        hostAvatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80',
+        amenities: ['Mountain/Beach View', 'Full Kitchen', 'Wi-Fi'],
+        images: [
+          customImg,
+          'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1200&q=80',
+        ]
+      };
+
+      PROPERTIES.unshift(newProp);
+      saveStorageItem('haven_properties_db', PROPERTIES);
+      renderPropertyGrid();
+      closeHostModal();
+      showPage('host-dash');
+    }
+
+    // Init UI
+    updateAuthHeaderUI();
+    renderPropertyGrid();
+  </script>
+</body>
+</html>
